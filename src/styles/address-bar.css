@@ -1,0 +1,50 @@
+/* .address-bar * {
+  border: 1px solid red;
+} */
+
+/* individual list items */
+.address-list-item {
+  width: 98%;
+  height: 50px;
+  margin: 5px auto;
+  border: 3px solid lightblue;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* div inside list items */
+.search-div {
+  width:95%;
+  height:100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* address input */
+.search-div input {
+  width: 90%;
+  height: 95%;
+  padding-left: 5%;
+  font-size: 20px;
+}
+
+/* delete address button */
+.remove-address {
+  font-size: 12px;
+}
+
+/* toggle for creating additional input li elements */
+.input-additional-toggle{
+  border: 3px solid lightgray;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.input-additional-toggle input, 
+.input-additional-toggle button {
+  pointer-events: none; 
+}

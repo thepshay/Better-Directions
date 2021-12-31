@@ -5,11 +5,13 @@
 }
 
 .address-bar{
-  width: 20vw;
+  width: 400px;
   height: 95vh;
+  border-right: 2px solid gray;
 }
 
 #map {
   height: 95vh;
   width: 80vw;
 }
+
