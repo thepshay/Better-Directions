@@ -1,4 +1,5 @@
 import {config} from '../config'
+import {loadMap} from './scripts/loadmap'
 
 // Create the script tag, set the appropriate attributes
 const script = document.createElement('script');
@@ -10,10 +11,5 @@ document.head.appendChild(script);
 
 // Attach your callback function to the `window` object
 window.initMap = function() {
-  // JS API is loaded and available
-  const map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8,
-  });
-
+  loadMap()
 };

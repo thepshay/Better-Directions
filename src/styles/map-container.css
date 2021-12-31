@@ -1,0 +1,15 @@
+.map-container {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.address-bar{
+  width: 20vw;
+  height: 95vh;
+}
+
+#map {
+  height: 95vh;
+  width: 80vw;
+}
