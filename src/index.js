@@ -1,6 +1,6 @@
 import {config} from '../config'
 import {loadMap} from './scripts/loadmap'
-import {handleNewInput} from './scripts/sidebar'
+import {handleNewInput, handleDeleteInput} from './scripts/sidebar'
 
 // console.log('sanity check, index.js')
 
@@ -18,3 +18,4 @@ window.initMap = function() {
 };
 
 handleNewInput();
+handleDeleteInput();
