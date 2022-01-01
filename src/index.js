@@ -1,6 +1,6 @@
 import {config} from '../config'
 import {loadMap} from './scripts/loadmap'
-import {handleNewInput, handleDeleteInput} from './scripts/sidebar'
+import {handleNewInput, handleDeleteAddress, handleSubmitAddress} from './scripts/sidebar'
 
 // console.log('sanity check, index.js')
 
@@ -14,7 +14,9 @@ document.head.appendChild(script);
 
 // Attach your callback function to the `window` object
 window.initMap = function() {
+  console.log('initMap');
   loadMap();
   handleNewInput();
-  handleDeleteInput();
+  handleDeleteAddress();
+  handleSubmitAddress();
 };

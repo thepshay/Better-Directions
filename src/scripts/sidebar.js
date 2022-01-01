@@ -1,4 +1,4 @@
-console.log('sanity check, sidebar')
+import {loadMap} from './loadmap'
 
 const addressUl = document.querySelector(".address-list")
 const searchDiv = document.querySelector('.search-div');
@@ -11,11 +11,13 @@ function addAutoToStartInput(){
 
 // Enables next input field and dynamically appends a input bar underneath.
 function handleNewInput(){
-  
+  console.log('handleNewInput')
   // creates a new input bar
   addressUl.addEventListener('click', e => {
 
     if (e.target && e.target.parentElement.matches('li.input-additional') ) {
+
+
       const inputLi = document.querySelector(".input-additional"); 
       const newDisabledLi = inputLi.cloneNode(true);
       inputLi.classList.remove('input-additional');  // undisables current li
@@ -35,8 +37,8 @@ function handleNewInput(){
 }
 
 // deletes li that hosts the input
-function handleDeleteInput() {
-
+function handleDeleteAddress() {
+  console.log('handleDeleteAddress')
   // removes parent li 
   addressUl.addEventListener('click', e=>{
     if (e.target && e.target.matches('button.remove-address')) {
@@ -51,12 +53,24 @@ function handleDeleteInput() {
   })
 }
 
+function handleSubmitAddress() {
+  console.log('handleSubmitAddress')
+  addressUl.addEventListener('click', e=>{
+    if (e.target && e.target.matches('button.submit-address')) {
+      const li = e.target.parentNode.parentNode
+      const input = li.querySelector('.address-input')
+      console.log(input.value)
+    }
+  })
+}
+
 function addAutocomplete(input) {
+  console.log('addAutocomplete')
   const autocompleteOptions = {
     types: []
   }
   const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions)
 }
 
-
-export {handleNewInput, handleDeleteInput, addAutoToStartInput}
+export {handleNewInput, handleDeleteAddress, addAutoToStartInput, 
+  handleSubmitAddress}
