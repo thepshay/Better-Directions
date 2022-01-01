@@ -3,6 +3,7 @@ console.log('sanity check, sidebar')
 const addressUl = document.querySelector(".address-list")
 const searchDiv = document.querySelector('.search-div');
 
+
 // Enables next input field and dynamically appends a input bar underneath.
 function handleNewInput(){
   
@@ -20,6 +21,11 @@ function handleNewInput(){
         newDisabledLi.classList.add('hidden')
       }
       addressUl.appendChild(newDisabledLi);
+
+
+      //add autocomplete address to inputs
+      const input = inputLi.querySelector('.address-input')
+      addAutocomplete(input)
     }
   });
 }
@@ -41,4 +47,17 @@ function handleDeleteInput() {
   })
 }
 
-export {handleNewInput, handleDeleteInput}
+function addAutocomplete(input) {
+  const autocompleteOptions = {
+    types: []
+  }
+  const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions)
+}
+
+function addAutoToStartInput(){
+  const startInput = document.querySelector('.start-address input');
+  addAutocomplete(startInput);
+}
+
+
+export {handleNewInput, handleDeleteInput, addAutoToStartInput}
