@@ -135,14 +135,14 @@ input {
 }
 
 /* toggle for creating additional input li elements */
-.input-additional-toggle{
+.input-additional{
   border: 3px solid lightgray;
   cursor: pointer;
   opacity: 0.5;
 }
 
-.input-additional-toggle input, 
-.input-additional-toggle button {
+.input-additional input, 
+.input-additional button {
   pointer-events: none; 
 }
 

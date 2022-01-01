@@ -1,5 +1,6 @@
 import {config} from '../config'
 import {loadMap} from './scripts/loadmap'
+import {handleNewInput} from './scripts/sidebar'
 
 // console.log('sanity check, index.js')
 
@@ -15,3 +16,5 @@ document.head.appendChild(script);
 window.initMap = function() {
   loadMap();
 };
+
+handleNewInput();
