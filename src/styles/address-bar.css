@@ -48,3 +48,7 @@
 .input-additional button {
   pointer-events: none; 
 }
+
+.hidden {
+  display: none;
+}
