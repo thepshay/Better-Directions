@@ -1,7 +1,7 @@
-export {createInputDiv, createRemoveBtn, createSubmitButton,createDisabledInputLi}
+export {createInputDiv, createRemoveBtn,createDisabledInputLi}
 
 function createInputDiv() {
-  const submitBtn = createSubmitButton();
+  // const submitBtn = createSubmitButton();
   const removeBtn = createRemoveBtn();
 
   const divContainer = document.createElement('div');
@@ -15,26 +15,17 @@ function createInputDiv() {
 
 
   divContainer.appendChild(addressInput);
-  divContainer.appendChild(submitBtn);
+  // divContainer.appendChild(submitBtn);
   divContainer.appendChild(removeBtn);
   return divContainer
 }
 
-function createSubmitButton() {
-  const submitBtn = document.createElement('button');
-  submitBtn.classList.add('submit-address');
-  submitBtn.textContent  = '✔️';
-  submitBtn.addEventListener('click', e=> {
-    e.stopPropagation();
-    console.log('check')
-  });
-  return submitBtn;
-}
 
 function createRemoveBtn() {
   const removeBtn = document.createElement('button');
   removeBtn.classList.add('remove-address');
   removeBtn.textContent  = '🗑️'
+
   removeBtn.addEventListener('click', e=> {
     e.stopPropagation();
     console.log('trash');
@@ -61,3 +52,21 @@ function removeLi(e) {
     hiddenLi.classList.remove('hidden');
   }
 }
+
+// function createSubmitButton() {
+//   const submitBtn = document.createElement('button');
+//   submitBtn.classList.add('submit-address');
+//   submitBtn.textContent  = '✔️';
+
+//   submitBtn.addEventListener('click', e=> {
+//     e.stopPropagation();
+//     submitAddress(e);
+//   });
+//   return submitBtn;
+// }
+
+// function submitAddress(e) {
+//   const parentDiv = e.target.parentNode;
+//   const input = parentDiv.querySelector('input.address-input');
+//   console.log(input.value)
+// }

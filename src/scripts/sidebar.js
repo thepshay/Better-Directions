@@ -4,11 +4,14 @@ import {createInputDiv, createRemoveBtn, createSubmitButton,
 
 function setupStartingInput() {
   const startLi = document.querySelector('.start-address');
-  const submitBtn = startLi.querySelector('.submit-address');
-  submitBtn.addEventListener('click', e=>{
-    e.stopPropagation();
-    console.log('check');
-  })
+  // const submitBtn = startLi.querySelector('.submit-address');
+  // submitBtn.addEventListener('click', e=>{
+  //   e.stopPropagation();
+  //   console.log('check');
+  // })
+
+  const startInput = document.querySelector('.start-address input');
+  addAutocomplete(startInput);
 }
 
 function handleNewInput() {

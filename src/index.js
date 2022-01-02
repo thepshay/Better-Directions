@@ -18,5 +18,4 @@ window.initMap = function() {
   loadMap();
   setupStartingInput();
   handleNewInput();
-  
 };
