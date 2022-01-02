@@ -74,27 +74,30 @@ function addMarkers(e) {
   const map = loadMap();
   const geocoder = new google.maps.Geocoder();
 
-  // recenters the map on starting address
-  let center = true;
+  // recenters the map on first address
+  let first = true;
   addressArr.forEach( address=> {
-    codeAddress(address, geocoder, map, center);
-    center = false;
+    codeAddress(address, geocoder, map, first);
+    first = false;
   })
 }
 
-function codeAddress(address, geocoder, map, center) {
+function codeAddress(address, geocoder, map, first) {
   geocoder.geocode( {'address': address}, function(results, status) {
     if (status =='OK') {
 
-      if (center) {
+      if (first) {
         map.setCenter(results[0].geometry.location);
-        map.setZoom(10)
+        map.setZoom(12)
       }
 
-      const marker = new google.maps.Marker({
+      const markerOptions = {
         map: map,
-        position: results[0].geometry.location
-      });
+        position: results[0].geometry.location,
+        animation: google.maps.Animation.DROP
+      }
+
+      const marker = new google.maps.Marker(markerOptions);
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     }
