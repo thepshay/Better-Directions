@@ -1,6 +1,6 @@
 export default class Address {
-  constructor(address, lat, lng) {
-    this.address = address;
+  constructor(addr, lat, lng) {
+    this.addr = addr;
     this.lat = lat;
     this.lng = lng;
   }  
