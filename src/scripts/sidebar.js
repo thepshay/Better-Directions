@@ -2,6 +2,10 @@ import { loadMap } from "./loadmap";
 import {createInputDiv, createRemoveBtn, createSubmitButton, 
   createDisabledInputLi} from './new-elements';
 
+export {handleNewInput, setupStartingInput, handleCalculateRoute}
+
+let addressArr = [];
+
 function setupStartingInput() {
   const startLi = document.querySelector('.start-address');
   // const submitBtn = startLi.querySelector('.submit-address');
@@ -19,6 +23,14 @@ function handleNewInput() {
   addressUl.addEventListener('click', e=>{
     addNewInputBar(e);
   })
+}
+
+function handleCalculateRoute() {
+  const calculateBtn = document.querySelector('.submit-btn');
+  calculateBtn.addEventListener('click', e=>{
+    storeAddress(e);
+    addMarkers(e);
+  });
 }
 
 function addAutocomplete(input) {
@@ -47,4 +59,44 @@ function addNewInputBar(e) {
   }
 }
 
-export {handleNewInput, setupStartingInput}
+function storeAddress(e) {
+  addressArr = [];
+  const addressUl = document.querySelectorAll(".address-list-item:not(.input-additional)");
+  addressUl.forEach(li => {
+    const input = li.querySelector('.address-input');
+    addressArr.push(input.value);
+  });
+  console.log(addressArr);
+}
+
+function addMarkers(e) {
+  const startingAddress = addressArr[0];
+  const map = loadMap();
+  const geocoder = new google.maps.Geocoder();
+
+  // recenters the map on starting address
+  let center = true;
+  addressArr.forEach( address=> {
+    codeAddress(address, geocoder, map, center);
+    center = false;
+  })
+}
+
+function codeAddress(address, geocoder, map, center) {
+  geocoder.geocode( {'address': address}, function(results, status) {
+    if (status =='OK') {
+
+      if (center) {
+        map.setCenter(results[0].geometry.location);
+        map.setZoom(10)
+      }
+
+      const marker = new google.maps.Marker({
+        map: map,
+        position: results[0].geometry.location
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}

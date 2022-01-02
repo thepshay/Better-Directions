@@ -1,6 +1,6 @@
 import {config} from '../config'
 import {loadMap} from './scripts/loadmap'
-import {handleNewInput, setupStartingInput} from './scripts/sidebar'
+import {handleNewInput, setupStartingInput, handleCalculateRoute} from './scripts/sidebar'
 
 // console.log('sanity check, index.js')
 
@@ -18,4 +18,5 @@ window.initMap = function() {
   loadMap();
   setupStartingInput();
   handleNewInput();
+  handleCalculateRoute();
 };
