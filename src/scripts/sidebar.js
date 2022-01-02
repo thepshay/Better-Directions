@@ -1,19 +1,16 @@
+import Address from "./address";
 import { loadMap } from "./loadmap";
 import {createInputDiv, createRemoveBtn, createSubmitButton, 
   createDisabledInputLi} from './new-elements';
 
 export {handleNewInput, setupStartingInput, handleCalculateRoute}
 
+let inputArr = [];
+let geocodeArr = [];
 let addressArr = [];
 
 function setupStartingInput() {
   const startLi = document.querySelector('.start-address');
-  // const submitBtn = startLi.querySelector('.submit-address');
-  // submitBtn.addEventListener('click', e=>{
-  //   e.stopPropagation();
-  //   console.log('check');
-  // })
-
   const startInput = document.querySelector('.start-address input');
   addAutocomplete(startInput);
 }
@@ -60,46 +57,50 @@ function addNewInputBar(e) {
 }
 
 function storeAddress(e) {
-  addressArr = [];
+  inputArr = [];
   const addressUl = document.querySelectorAll(".address-list-item:not(.input-additional)");
   addressUl.forEach(li => {
     const input = li.querySelector('.address-input');
-    addressArr.push(input.value);
+    inputArr.push(input.value);
   });
-  console.log(addressArr);
 }
 
 function addMarkers(e) {
-  const startingAddress = addressArr[0];
+  const startingAddress = inputArr[0];
   const map = loadMap();
   const geocoder = new google.maps.Geocoder();
 
-  // recenters the map on first address
-  let first = true;
-  addressArr.forEach( address=> {
-    codeAddress(address, geocoder, map, first);
-    first = false;
-  })
+    // recenters the map on first address
+    let first = true;
+    inputArr.forEach( address=> {
+      codeAddress(address, geocoder, map, first);
+      first = false;
+    })
 }
 
 function codeAddress(address, geocoder, map, first) {
   geocoder.geocode( {'address': address}, function(results, status) {
     if (status =='OK') {
 
-      if (first) {
-        map.setCenter(results[0].geometry.location);
-        map.setZoom(12)
-      }
+      const currLat = results[0].geometry.location.lat();
+      const currLng = results[0].geometry.location.lng();
+      const newAddr = new Address(address, currLat, currLng);
+      addressArr.push(newAddr);
 
-      const markerOptions = {
-        map: map,
-        position: results[0].geometry.location,
-        animation: google.maps.Animation.DROP
-      }
+    const markerOptions = {
+      map: map,
+      position: results[0].geometry.location,
+      animation: google.maps.Animation.DROP
+    }
+    const marker = new google.maps.Marker(markerOptions);
 
-      const marker = new google.maps.Marker(markerOptions);
+    if (first) {
+      map.setCenter({lat: currLat, lng: currLng});
+      map.setZoom(12);
+      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+    }
     } else {
-      alert('Geocode was not successful for the following reason: ' + status);
+      alert(`We cannot find the address: "${address}". Please try again\n${status}`)
     }
   });
 }
