@@ -1,5 +1,3 @@
-import {addAutoToStartInput} from './sidebar'
-
 function loadMap() {
   console.log('loadmap')
 
@@ -9,7 +7,6 @@ function loadMap() {
   }
 
   const map = new google.maps.Map(document.getElementById("map"), mapOptions);
-  addAutoToStartInput();
   return map;
 }
 

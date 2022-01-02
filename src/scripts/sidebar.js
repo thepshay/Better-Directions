@@ -1,76 +1,47 @@
-import {loadMap} from './loadmap'
+import { loadMap } from "./loadmap";
+import {createInputDiv, createRemoveBtn, createSubmitButton, 
+  createDisabledInputLi} from './new-elements';
 
-const addressUl = document.querySelector(".address-list")
-const searchDiv = document.querySelector('.search-div');
-
-function addAutoToStartInput(){
-  const startInput = document.querySelector('.start-address input');
-  addAutocomplete(startInput);
-}
-
-
-// Enables next input field and dynamically appends a input bar underneath.
-function handleNewInput(){
-  console.log('handleNewInput')
-  // creates a new input bar
-  addressUl.addEventListener('click', e => {
-
-    if (e.target && e.target.parentElement.matches('li.input-additional') ) {
-
-
-      const inputLi = document.querySelector(".input-additional"); 
-      const newDisabledLi = inputLi.cloneNode(true);
-      inputLi.classList.remove('input-additional');  // undisables current li
-      
-      // limit user to only 10 entries
-      // it hits 10, adds a hidden class to last element (used in handleDelete Input)
-      if (document.querySelectorAll('.address-list li').length === 10) {
-        newDisabledLi.classList.add('hidden')
-      }
-      addressUl.appendChild(newDisabledLi);
-
-      //add autocomplete address to inputs
-      const input = inputLi.querySelector('.address-input')
-      addAutocomplete(input)
-    }
-  });
-}
-
-// deletes li that hosts the input
-function handleDeleteAddress() {
-  console.log('handleDeleteAddress')
-  // removes parent li 
-  addressUl.addEventListener('click', e=>{
-    if (e.target && e.target.matches('button.remove-address')) {
-      e.target.parentNode.parentNode.remove();
-
-      // If there is 9 showing elements, unhides hidden element
-      if (document.querySelectorAll('.address-list li').length === 10) {
-        const hiddenLi = document.querySelector(".hidden"); 
-        hiddenLi.classList.remove('hidden');
-      }
-    }
+function setupStartingInput() {
+  const startLi = document.querySelector('.start-address');
+  const submitBtn = startLi.querySelector('.submit-address');
+  submitBtn.addEventListener('click', e=>{
+    e.stopPropagation();
+    console.log('check');
   })
 }
 
-function handleSubmitAddress() {
-  console.log('handleSubmitAddress')
+function handleNewInput() {
+  const addressUl = document.querySelector(".address-list");
   addressUl.addEventListener('click', e=>{
-    if (e.target && e.target.matches('button.submit-address')) {
-      const li = e.target.parentNode.parentNode
-      const input = li.querySelector('.address-input')
-      console.log(input.value)
-    }
+    addNewInputBar(e);
   })
 }
 
 function addAutocomplete(input) {
-  console.log('addAutocomplete')
   const autocompleteOptions = {
     types: []
   }
   const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions)
 }
 
-export {handleNewInput, handleDeleteAddress, addAutoToStartInput, 
-  handleSubmitAddress}
+function addNewInputBar(e) {
+  if (e.target && e.target.matches('li.input-additional')){
+    const newLi = document.querySelector('.input-additional');
+    const addressUl = document.querySelector(".address-list");
+    newLi.appendChild(createInputDiv());
+    newLi.classList.remove('input-additional')
+
+    const disabledLi = createDisabledInputLi()
+    addressUl.appendChild(disabledLi);
+
+    if (document.querySelectorAll('.address-list li').length === 11) {
+      disabledLi.classList.add('hidden')
+    }
+
+    const input = newLi.querySelector('.address-input')
+    addAutocomplete(input)
+  }
+}
+
+export {handleNewInput, setupStartingInput}

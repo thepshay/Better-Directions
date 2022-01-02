@@ -1,6 +1,6 @@
 import {config} from '../config'
 import {loadMap} from './scripts/loadmap'
-import {handleNewInput, handleDeleteAddress, handleSubmitAddress} from './scripts/sidebar'
+import {handleNewInput, setupStartingInput} from './scripts/sidebar'
 
 // console.log('sanity check, index.js')
 
@@ -16,7 +16,7 @@ document.head.appendChild(script);
 window.initMap = function() {
   console.log('initMap');
   loadMap();
+  setupStartingInput();
   handleNewInput();
-  handleDeleteAddress();
-  handleSubmitAddress();
+  
 };
