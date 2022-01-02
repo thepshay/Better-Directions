@@ -2,11 +2,12 @@ import Address from "./address";
 import { loadMap } from "./loadmap";
 import {createInputDiv, createRemoveBtn, createSubmitButton, 
   createDisabledInputLi} from './new-elements';
+import { printAddressAr } from './calculate-route';
 
-export {handleNewInput, setupStartingInput, handleCalculateRoute}
+
+export {handleNewInput, setupStartingInput, handleCalculateRoute, addressArr}
 
 let inputArr = [];
-let geocodeArr = [];
 let addressArr = [];
 
 function setupStartingInput() {
@@ -25,8 +26,9 @@ function handleNewInput() {
 function handleCalculateRoute() {
   const calculateBtn = document.querySelector('.submit-btn');
   calculateBtn.addEventListener('click', e=>{
-    storeAddress(e);
-    addMarkers(e);
+    storeInput(e);
+    addMarkersAndStoreAddress(e); //stores address to addressArr
+    console.log(addressArr);
   });
 }
 
@@ -56,7 +58,7 @@ function addNewInputBar(e) {
   }
 }
 
-function storeAddress(e) {
+function storeInput(e) {
   inputArr = [];
   const addressUl = document.querySelectorAll(".address-list-item:not(.input-additional)");
   addressUl.forEach(li => {
@@ -65,7 +67,8 @@ function storeAddress(e) {
   });
 }
 
-function addMarkers(e) {
+function addMarkersAndStoreAddress(e) {
+  addressArr = [];
   const startingAddress = inputArr[0];
   const map = loadMap();
   const geocoder = new google.maps.Geocoder();
@@ -82,10 +85,10 @@ function codeAddress(address, geocoder, map, first) {
   geocoder.geocode( {'address': address}, function(results, status) {
     if (status =='OK') {
 
-      const currLat = results[0].geometry.location.lat();
-      const currLng = results[0].geometry.location.lng();
-      const newAddr = new Address(address, currLat, currLng);
-      addressArr.push(newAddr);
+    const currLat = results[0].geometry.location.lat();
+    const currLng = results[0].geometry.location.lng();
+    const newAddr = new Address(address, currLat, currLng);
+    addressArr.push(newAddr);
 
     const markerOptions = {
       map: map,
@@ -97,10 +100,11 @@ function codeAddress(address, geocoder, map, first) {
     if (first) {
       map.setCenter({lat: currLat, lng: currLng});
       map.setZoom(12);
-      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
     }
     } else {
       alert(`We cannot find the address: "${address}". Please try again\n${status}`)
     }
   });
 }
+

@@ -1,4 +1,5 @@
 import {config} from '../config'
+import Address from './scripts/address';
 import {loadMap} from './scripts/loadmap'
 import {handleNewInput, setupStartingInput, handleCalculateRoute} from './scripts/sidebar'
 
@@ -14,8 +15,7 @@ document.head.appendChild(script);
 
 // Attach your callback function to the `window` object
 window.initMap = function() {
-  console.log('initMap');
-  loadMap();
+  const map = loadMap();
   setupStartingInput();
   handleNewInput();
   handleCalculateRoute();

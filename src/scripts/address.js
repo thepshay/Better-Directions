@@ -3,8 +3,6 @@ export default class Address {
     this.address = address;
     this.lat = lat;
     this.lng = lng;
-  }
-  
-  
-  
+  }  
 }
+
