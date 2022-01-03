@@ -1,6 +1,5 @@
 import Distance from "./distance";
 import Address from "./address";
-// export {calculateRoute, getAllPairs}
 
 const startAddr = new Address('Temple City, CA, USA', 34.1072305, -118.0578456);
 const endAddr = new Address('Rosemead, CA, USA', 34.0805651, -118.072846);
@@ -42,7 +41,8 @@ export function calculateRoute(startAddr, endAddr) {
           resolve(calculateRoute(startAddr, endAddr));
         }, 2000);
       } else {
-        reject(`calculateRoute didnt work ${status}`)
+        const error = new Error(`Unable to calculate route from ${startAddr.addr} to ${endAddr.addr}\nStatus: ${status}`)
+        reject(error)
       }
     });
   })

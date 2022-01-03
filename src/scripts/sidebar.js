@@ -71,19 +71,18 @@ function storeInput(e) {
 
 // TODO: A Function to process inputs 
 async function handleInputs(inputArr) {
-  const promises = await Promise.all(inputArr.map(input => getGeocode(input)));
-  // console.log(promises);
 
-  const pairs = getAllPairs(promises);
-  
-  // const distances = await Promise.all(pairs.map(pair => {calculateRoute(pair[0], pair[1])));
-  
-  const distances = await Promise.all(pairs.map(async pair => {
-    // await sleep(1100);
-    return calculateRoute(pair[0], pair[1]);
-  }));
-  
-  console.log(distances)
+  try {
+    const promises = await Promise.all(inputArr.map(input => getGeocode(input)));
+    const pairs = getAllPairs(promises);
+    const distances = await Promise.all(pairs.map(async pair => {
+      return calculateRoute(pair[0], pair[1]);
+    }));
+    
+    console.log(distances);
+  } catch (e) {
+    alert(e)
+  }
 }
 
 
@@ -97,13 +96,8 @@ function getGeocode(address) {
         const newAddr = new Address(address, currLat, currLng);
         resolve(newAddr)
       } else {
-        alert(`fail ${address}`)
-        // reject('something went wrong')
+        reject(new Error(`Cannot find address "${address}". Please try again \nStatus: ${status}`))
       }
     })
   });
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
