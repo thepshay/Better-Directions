@@ -2,7 +2,7 @@ import Address from "./address";
 import { loadMap } from "./loadmap";
 import {createInputDiv, createRemoveBtn, createSubmitButton, 
   createDisabledInputLi} from './new-elements';
-import { printAddressAr } from './calculate-route';
+import { printAddressAr, getAllDistance } from './calculate-route';
 
 
 export {handleNewInput, setupStartingInput, handleCalculateRoute, addressArr}
@@ -26,9 +26,8 @@ function handleNewInput() {
 function handleCalculateRoute() {
   const calculateBtn = document.querySelector('.submit-btn');
   calculateBtn.addEventListener('click', e=>{
-    storeInput(e);
-    addMarkersAndStoreAddress(e); //stores address to addressArr
-    console.log(addressArr);
+    const inputArr = storeInput(e);
+    storeAddress(e, inputArr)
   });
 }
 
@@ -65,46 +64,9 @@ function storeInput(e) {
     const input = li.querySelector('.address-input');
     inputArr.push(input.value);
   });
+  return inputArr;
 }
 
-function addMarkersAndStoreAddress(e) {
-  addressArr = [];
-  const startingAddress = inputArr[0];
-  const map = loadMap();
-  const geocoder = new google.maps.Geocoder();
-
-    // recenters the map on first address
-    let first = true;
-    inputArr.forEach( address=> {
-      codeAddress(address, geocoder, map, first);
-      first = false;
-    })
+function storeAddress(e, inputArr) {
+  console.log(inputArr);
 }
-
-function codeAddress(address, geocoder, map, first) {
-  geocoder.geocode( {'address': address}, function(results, status) {
-    if (status =='OK') {
-
-    const currLat = results[0].geometry.location.lat();
-    const currLng = results[0].geometry.location.lng();
-    const newAddr = new Address(address, currLat, currLng);
-    addressArr.push(newAddr);
-
-    const markerOptions = {
-      map: map,
-      position: results[0].geometry.location,
-      animation: google.maps.Animation.DROP
-    }
-    const marker = new google.maps.Marker(markerOptions);
-
-    if (first) {
-      map.setCenter({lat: currLat, lng: currLng});
-      map.setZoom(12);
-      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
-    }
-    } else {
-      alert(`We cannot find the address: "${address}". Please try again\n${status}`)
-    }
-  });
-}
-
