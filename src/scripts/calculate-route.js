@@ -1,11 +1,11 @@
 import Distance from "./distance";
 import Address from "./address";
-export {getPairDistance, calculateRoute, getAllPairs}
+// export {calculateRoute, getAllPairs}
 
 const startAddr = new Address('Temple City, CA, USA', 34.1072305, -118.0578456);
 const endAddr = new Address('Rosemead, CA, USA', 34.0805651, -118.072846);
 
-function getAllPairs(addresses) {
+export function getAllPairs(addresses) {
   const allPairs = [];
   for (let i = 0; i < addresses.length; i++) {
     for (let j = i+1; j < addresses.length; j++){
@@ -18,16 +18,8 @@ function getAllPairs(addresses) {
   return allPairs;
 }
 
-// returns distance obj from a to b and b to a
-function getPairDistance(startAddr, endAddr) {
-  const pairDist = [];
-  calculateRoute(startAddr, endAddr, pairDist);
-  calculateRoute(endAddr, startAddr, pairDist);
-  return pairDist;
-}
-
-function calculateRoute(startAddr, endAddr) {
-
+export function calculateRoute(startAddr, endAddr) {
+  let wait = 0;
   return new Promise((resolve, reject) => {
     const directionsService = new google.maps.DirectionsService();
     const requestOptions = {
@@ -43,8 +35,14 @@ function calculateRoute(startAddr, endAddr) {
   
         dist = new Distance(startAddr, endAddr, distance, duration);
         resolve(dist)
+      } else if (status === google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
+        // Prevent OVER QUERY LIMIT, set delay to 2 second 
+        setTimeout(() => {
+          console.log('waiting')
+          resolve(calculateRoute(startAddr, endAddr));
+        }, 2000);
       } else {
-        reject(`didnt work ${status}`)
+        reject(`calculateRoute didnt work ${status}`)
       }
     });
   })

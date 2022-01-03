@@ -76,7 +76,13 @@ async function handleInputs(inputArr) {
 
   const pairs = getAllPairs(promises);
   
-  const distances = await Promise.all(pairs.map(pair => calculateRoute(pair[0], pair[1])));
+  // const distances = await Promise.all(pairs.map(pair => {calculateRoute(pair[0], pair[1])));
+  
+  const distances = await Promise.all(pairs.map(async pair => {
+    // await sleep(1100);
+    return calculateRoute(pair[0], pair[1]);
+  }));
+  
   console.log(distances)
 }
 
@@ -96,4 +102,8 @@ function getGeocode(address) {
       }
     })
   });
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
