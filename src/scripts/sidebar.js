@@ -27,7 +27,9 @@ function handleCalculateRoute() {
   const calculateBtn = document.querySelector('.submit-btn');
   calculateBtn.addEventListener('click', e=>{
     const inputArr = storeInput(e);
-    storeAddress(e, inputArr)
+
+    // TODO: find a way to get extra geocode
+    const arr = getAddresses(e, inputArr, printArray)
   });
 }
 
@@ -67,6 +69,35 @@ function storeInput(e) {
   return inputArr;
 }
 
-function storeAddress(e, inputArr) {
-  console.log(inputArr);
+async function getAddresses(e, inputArr, callback) {
+
+  let promises = inputArr.map( input => {
+    return new Promise((resolve, reject) => {
+      const geocoder = new google.maps.Geocoder();
+      let val = null;
+      geocoder.geocode({ 'address' : input }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          const currLat = results[0].geometry.location.lat();
+          const currLng = results[0].geometry.location.lng();
+          const newAddr = new Address(input, currLat, currLng);
+          resolve(newAddr)
+        } else {
+          alter('fail')
+          reject('something went wrong')
+        }
+        
+      })
+    });
+  })
+  
+  const val_1 = await Promise.all(promises);
+  callback(test)
+}
+
+function printArray(arr) {
+  const test = [];
+  arr.forEach(ele => {
+    test.push(ele)
+  })
+  return test;
 }

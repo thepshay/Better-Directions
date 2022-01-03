@@ -6,7 +6,6 @@ const startAddr = new Address('Temple City, CA, USA', 34.1072305, -118.0578456);
 const endAddr = new Address('Rosemead, CA, USA', 34.0805651, -118.072846);
 
 function getAllDistance(addresses) {
-  console.log(addresses.length)
   const allDistArr = [];
   for (let i = 0; i < addresses.length; i++) {
     for (let j = i+1; j < addresses.length; j++){
