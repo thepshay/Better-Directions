@@ -2,7 +2,7 @@ import Address from "./address";
 import { loadMap } from "./loadmap";
 import {createInputDiv, createRemoveBtn, createSubmitButton, 
   createDisabledInputLi} from './new-elements';
-import { printAddressAr, getAllDistance } from './calculate-route';
+import { calculateRoute, getAllPairs } from './calculate-route';
 
 
 export {handleNewInput, setupStartingInput, handleCalculateRoute, addressArr}
@@ -29,9 +29,7 @@ function handleCalculateRoute() {
     const inputArr = storeInput(e);
 
     // TODO: find a way to get extra geocode
-    const arr = getAddresses(e, inputArr)
-    arr.then(val => getPairs(val))
-    .then(val1 => console.log(val1)); //array of pairs
+    handleInputs(inputArr)
   });
 }
 
@@ -71,18 +69,17 @@ function storeInput(e) {
   return inputArr;
 }
 
-async function getAddresses(e, inputArr) {
+// TODO: A Function to process inputs 
+async function handleInputs(inputArr) {
+  const promises = await Promise.all(inputArr.map(input => getGeocode(input)));
+  // console.log(promises);
 
-  const array = [];
+  const pairs = getAllPairs(promises);
   
-  for (const ele of inputArr) {
-    const newElem = await getGeocode(ele);
-    array.push(newElem);
-  }
-  console.log(array);
-  // THIS RETURNS A PROMISE
-  return array;
+  const distances = await Promise.all(pairs.map(pair => calculateRoute(pair[0], pair[1])));
+  console.log(distances)
 }
+
 
 function getGeocode(address) {
   return new Promise((resolve, reject) => {
@@ -99,15 +96,4 @@ function getGeocode(address) {
       }
     })
   });
-}
-
-function getPairs(array) {
-  const pairArr = [];
-  for(let i = 0; i < array.length; i++) {
-    for (let j = i+1; j < array.length; j++) {
-      pairArr.push([array[i], array[j]]);
-    }
-  }
-  // console.log(pairArr);
-  return pairArr
 }
