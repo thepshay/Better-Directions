@@ -29,7 +29,9 @@ function handleCalculateRoute() {
     const inputArr = storeInput(e);
 
     // TODO: find a way to get extra geocode
-    const arr = getAddresses(e, inputArr, printArray)
+    const arr = getAddresses(e, inputArr)
+    arr.then(val => getPairs(val))
+    .then(val1 => console.log(val1)); //array of pairs
   });
 }
 
@@ -69,35 +71,43 @@ function storeInput(e) {
   return inputArr;
 }
 
-async function getAddresses(e, inputArr, callback) {
+async function getAddresses(e, inputArr) {
 
-  let promises = inputArr.map( input => {
-    return new Promise((resolve, reject) => {
-      const geocoder = new google.maps.Geocoder();
-      let val = null;
-      geocoder.geocode({ 'address' : input }, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          const currLat = results[0].geometry.location.lat();
-          const currLng = results[0].geometry.location.lng();
-          const newAddr = new Address(input, currLat, currLng);
-          resolve(newAddr)
-        } else {
-          alter('fail')
-          reject('something went wrong')
-        }
-        
-      })
-    });
-  })
+  const array = [];
   
-  const val_1 = await Promise.all(promises);
-  callback(test)
+  for (const ele of inputArr) {
+    const newElem = await getGeocode(ele);
+    array.push(newElem);
+  }
+  console.log(array);
+  // THIS RETURNS A PROMISE
+  return array;
 }
 
-function printArray(arr) {
-  const test = [];
-  arr.forEach(ele => {
-    test.push(ele)
-  })
-  return test;
+function getGeocode(address) {
+  return new Promise((resolve, reject) => {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address' : address }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        const currLat = results[0].geometry.location.lat();
+        const currLng = results[0].geometry.location.lng();
+        const newAddr = new Address(address, currLat, currLng);
+        resolve(newAddr)
+      } else {
+        alert(`fail ${address}`)
+        // reject('something went wrong')
+      }
+    })
+  });
+}
+
+function getPairs(array) {
+  const pairArr = [];
+  for(let i = 0; i < array.length; i++) {
+    for (let j = i+1; j < array.length; j++) {
+      pairArr.push([array[i], array[j]]);
+    }
+  }
+  // console.log(pairArr);
+  return pairArr
 }
