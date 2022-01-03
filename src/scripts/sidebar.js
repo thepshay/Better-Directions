@@ -3,12 +3,7 @@ import { loadMap } from "./loadmap";
 import {createInputDiv, createRemoveBtn, createSubmitButton, 
   createDisabledInputLi} from './new-elements';
 import { calculateRoute, getAllPairs } from './calculate-route';
-
-
-export {handleNewInput, setupStartingInput, handleCalculateRoute, addressArr}
-
-let inputArr = [];
-let addressArr = [];
+export {handleNewInput, setupStartingInput, handleCalculateRoute}
 
 function setupStartingInput() {
   const startLi = document.querySelector('.start-address');
@@ -60,7 +55,7 @@ function addNewInputBar(e) {
 }
 
 function storeInput(e) {
-  inputArr = [];
+  const inputArr = [];
   const addressUl = document.querySelectorAll(".address-list-item:not(.input-additional)");
   addressUl.forEach(li => {
     const input = li.querySelector('.address-input');
@@ -73,8 +68,9 @@ function storeInput(e) {
 async function handleInputs(inputArr) {
 
   try {
-    const promises = await Promise.all(inputArr.map(input => getGeocode(input)));
-    const pairs = getAllPairs(promises);
+    const addresses = await Promise.all(inputArr.map(input => getGeocode(input)));
+    addMarkers(addresses);
+    const pairs = getAllPairs(addresses);
     const distances = await Promise.all(pairs.map(async pair => {
       return calculateRoute(pair[0], pair[1]);
     }));
@@ -100,4 +96,31 @@ function getGeocode(address) {
       }
     })
   });
+}
+
+// adds markers to given addresses, centers map at the first input
+function addMarkers(addresses) {
+  const map = loadMap();
+  addresses.forEach((address, index) => {
+
+    console.log(address)
+
+    const addrGeocode = {
+      lat: address.lat,
+      lng: address.lng
+    }
+
+    const markerOptions = {
+      map: map,
+      position: addrGeocode,
+      animation: google.maps.Animation.DROP
+    }
+
+    const marker = new google.maps.Marker(markerOptions);
+    if (index === 0) {
+      map.setCenter(addrGeocode);
+      map.setZoom(10);
+      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+    }
+  })
 }
