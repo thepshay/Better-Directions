@@ -47,23 +47,13 @@ export function calculateRoute(startAddr, endAddr) {
   })
 }
 
-// export function showRoute(startAddr, endAddr, map) {
-//   const directionsRenderer = new google.maps.DirectionsRenderer();
-//   const directionsService = new google.maps.DirectionsService();
-//   directionsRenderer.setMap(map)
-//   return new Promise((resolve, reject) => {
-//     const requestOptions = {
-//       origin: startAddr.addr,
-//       destination: endAddr.addr,
-//       travelMode: 'DRIVING'
-//     }
-//     directionsService.route(request, function(result, status) {
-//       if (status == 'OK') {
-//         directionsRenderer.setDirections(result);
-//       }
-//     });  
-//   });
-// }
+export function showRoute(direction, map) {
+  return new Promise((resolve, reject) => {
+    const directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
+    directionsRenderer.setMap(map);      
+    directionsRenderer.setDirections(direction.response);
+  })
+}
 
 // converts distance to a n by n matrix
 export function toMatrixForm(distances, num) {

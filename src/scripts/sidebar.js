@@ -76,14 +76,10 @@ async function getDistances(addresses){
   return distances
 }
 
-// async function getRoute(direction, map) {
-//   const directionsRenderer = new google.maps.DirectionsRenderer();
-//   directionsRenderer.setMap(map)
-//   for (let i = 0; i < direction.length-1; i++) {
-//     directionsRenderer.setDirections(direction);
-//   }
-
-// }
+async function getRoute(directions, map) {
+  await Promise.all(directions.map(direction => showRoute(direction, map)));
+  alert('hello')
+}
 
 
 function getGeocode(address) {
@@ -129,27 +125,25 @@ function displayRoute(inputArr) {
   const map = loadMap();
 
 
-  // getAddresses(inputArr)
-  //     .then(addresses => {
-  //       addMarkers(addresses, map)
-  //       return getDistances(addresses)
-  //     }).then(distances => {
-  //       const matrix = toMatrixForm(distances, inputArr.length-1);
-  //       const directionIndex =  tsp(matrix, inputArr.length)
-  //       const distances = [];
-  //     }).catch(error => {
-  //       alert(error)
-  //     });
-
   getAddresses(inputArr)
-    .then(addresses => {
-      addMarkers(addresses, map)
-      return getDistances(addresses)    
-    }).then(distances => {
-      distances.forEach(dist => {
-        const directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
-        directionsRenderer.setMap(map);      
-        directionsRenderer.setDirections(dist.response);
-      })
-    })
+      .then(addresses => {
+        addMarkers(addresses, map)
+        return getDistances(addresses)
+      }).then(distances => {
+        const matrix = toMatrixForm(distances, inputArr.length-1);
+        const directionIndex =  tsp(matrix, inputArr.length);
+        const directions = getDirections(matrix, directionIndex);
+        getRoute(directions, map);
+      }).catch(error => {
+        alert(error)
+      });
+}
+
+function getDirections(matrix, directionIndex) {
+  const directions = [];
+  for (let i = 0; i < directionIndex.length-1; i++) {
+    const dir = matrix[directionIndex[i]][directionIndex[i+1]];
+    directions.push(dir);
+  }
+  return directions;
 }
