@@ -17,21 +17,21 @@ export function getAllPairs(addresses) {
 }
 
 export function calculateRoute(startAddr, endAddr) {
-  let wait = 0;
+  const directionsService = new google.maps.DirectionsService();
   return new Promise((resolve, reject) => {
-    const directionsService = new google.maps.DirectionsService();
+    
     const requestOptions = {
       origin: startAddr.addr,
       destination: endAddr.addr,
       travelMode: 'DRIVING'
     }
-    directionsService.route(requestOptions, (response, status, dist)=>{
+    directionsService.route(requestOptions, (response, status)=>{
       if (status=='OK'){
         const distance = response.routes[0].legs[0].distance.text;
         const duration = response.routes[0].legs[0].duration.text;
         // console.log(`distance: ${distance}| duration: ${duration}`);
   
-        dist = new Distance(startAddr, endAddr, distance, duration);
+        const dist = new Distance(startAddr, endAddr, distance, duration, response);
         resolve(dist)
       } else if (status === google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
         // Prevent OVER QUERY LIMIT, set delay to 2 second 
@@ -46,6 +46,24 @@ export function calculateRoute(startAddr, endAddr) {
     });
   })
 }
+
+// export function showRoute(startAddr, endAddr, map) {
+//   const directionsRenderer = new google.maps.DirectionsRenderer();
+//   const directionsService = new google.maps.DirectionsService();
+//   directionsRenderer.setMap(map)
+//   return new Promise((resolve, reject) => {
+//     const requestOptions = {
+//       origin: startAddr.addr,
+//       destination: endAddr.addr,
+//       travelMode: 'DRIVING'
+//     }
+//     directionsService.route(request, function(result, status) {
+//       if (status == 'OK') {
+//         directionsRenderer.setDirections(result);
+//       }
+//     });  
+//   });
+// }
 
 // converts distance to a n by n matrix
 export function toMatrixForm(distances, num) {
@@ -111,5 +129,5 @@ export function tsp(matrix, vertices, startingIdx = 0) {
       minPath = currPath.slice()
     }
   })
-  return [minDist, minPath]; 
+  return minPath; 
 }

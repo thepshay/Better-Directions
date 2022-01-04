@@ -2,7 +2,7 @@ import Address from "./address";
 import { loadMap } from "./loadmap";
 import {createInputDiv, createRemoveBtn, createSubmitButton, 
   createDisabledInputLi} from './new-elements';
-import { calculateRoute, getAllPairs, toMatrixForm, tsp } from './calculate-route';
+import { calculateRoute, getAllPairs, toMatrixForm, tsp, showRoute } from './calculate-route';
 export {handleNewInput, setupStartingInput, handleCalculateRoute}
 
 function setupStartingInput() {
@@ -22,14 +22,7 @@ function handleCalculateRoute() {
   const calculateBtn = document.querySelector('.submit-btn');
   calculateBtn.addEventListener('click', e=>{
     const inputArr = storeInput(e);
-
-    // TODO: find a way to get extra geocode
-    getAddresses(inputArr)
-      .then(distances => {
-        const matrix = toMatrixForm(distances, inputArr.length-1);
-        const value = tsp(matrix, inputArr.length)
-        console.log(value)
-      })
+    displayRoute(inputArr);
   });
 }
 
@@ -69,22 +62,28 @@ function storeInput(e) {
   return inputArr;
 }
 
-// TODO: A Function to process inputs 
 async function getAddresses(inputArr) {
-
-  try {
-    const addresses = await Promise.all(inputArr.map(input => getGeocode(input)));
-    addMarkers(addresses);
-    const pairs = getAllPairs(addresses);
-    const distances = await Promise.all(pairs.map(async pair => {
-      return calculateRoute(pair[0], pair[1]);
-    }));
-    
-    return distances
-  } catch (e) {
-    alert(e)
-  }
+  const addresses = await Promise.all(inputArr.map(input => getGeocode(input)));
+  return addresses
 }
+
+async function getDistances(addresses){
+  const pairs = getAllPairs(addresses);
+
+  const distances = await Promise.all(pairs.map(async pair => {
+    return calculateRoute(pair[0], pair[1]);
+  }));
+  return distances
+}
+
+// async function getRoute(direction, map) {
+//   const directionsRenderer = new google.maps.DirectionsRenderer();
+//   directionsRenderer.setMap(map)
+//   for (let i = 0; i < direction.length-1; i++) {
+//     directionsRenderer.setDirections(direction);
+//   }
+
+// }
 
 
 function getGeocode(address) {
@@ -104,8 +103,7 @@ function getGeocode(address) {
 }
 
 // adds markers to given addresses, centers map at the first input
-function addMarkers(addresses) {
-  const map = loadMap();
+function addMarkers(addresses, map) {
   addresses.forEach((address, index) => {
     const addrGeocode = {
       lat: address.lat,
@@ -125,4 +123,33 @@ function addMarkers(addresses) {
       marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
     }
   })
+}
+
+function displayRoute(inputArr) {
+  const map = loadMap();
+
+
+  // getAddresses(inputArr)
+  //     .then(addresses => {
+  //       addMarkers(addresses, map)
+  //       return getDistances(addresses)
+  //     }).then(distances => {
+  //       const matrix = toMatrixForm(distances, inputArr.length-1);
+  //       const directionIndex =  tsp(matrix, inputArr.length)
+  //       const distances = [];
+  //     }).catch(error => {
+  //       alert(error)
+  //     });
+
+  getAddresses(inputArr)
+    .then(addresses => {
+      addMarkers(addresses, map)
+      return getDistances(addresses)    
+    }).then(distances => {
+      distances.forEach(dist => {
+        const directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
+        directionsRenderer.setMap(map);      
+        directionsRenderer.setDirections(dist.response);
+      })
+    })
 }

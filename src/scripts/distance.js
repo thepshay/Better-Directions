@@ -1,9 +1,10 @@
 export default class Distance {
-  constructor(startAddr, endAddr, distance, duration){
+  constructor(startAddr, endAddr, distance, duration, response){
     this.startAddr = startAddr;
     this.endAddr = endAddr;
     this.distance = distance;
     this.duration = duration;
+    this.response = response;
   }
 
   getDistanceNumeric(measurementType) {
@@ -13,4 +14,6 @@ export default class Distance {
     }
     return dist;
   }
+
+  // getDistance(startAddr, endAddr)
 }
