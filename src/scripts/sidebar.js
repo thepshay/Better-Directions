@@ -78,7 +78,6 @@ async function getDistances(addresses){
 
 async function getRoute(directions, map) {
   await Promise.all(directions.map(direction => showRoute(direction, map)));
-  alert('hello')
 }
 
 
@@ -134,7 +133,16 @@ function displayRoute(inputArr) {
         const directionIndex =  tsp(matrix, inputArr.length);
         const directions = getDirections(matrix, directionIndex);
         getRoute(directions, map);
-      }).catch(error => {
+        return Promise.resolve(directions)
+      }).then( directions => {
+        let tempAlert = 'Best path to take is:\n';
+        directions.forEach(direction =>{
+          tempAlert += `${direction.startAddr.addr}\n`
+        });
+        alert(tempAlert);
+        console.log(tempAlert)
+      }
+      ).catch(error => {
         alert(error)
       });
 }
