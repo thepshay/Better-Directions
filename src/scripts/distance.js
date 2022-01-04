@@ -8,8 +8,8 @@ export default class Distance {
 
   getDistanceNumeric(measurementType) {
     let dist = 0;
-    if (distance.includes(measurementType)) {
-      dist = parseFloat(distance.split(' '));
+    if (this.distance.includes(measurementType)) {
+      dist = parseFloat(this.distance.split(' '));
     }
     return dist;
   }

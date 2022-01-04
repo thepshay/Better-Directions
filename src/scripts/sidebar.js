@@ -2,7 +2,7 @@ import Address from "./address";
 import { loadMap } from "./loadmap";
 import {createInputDiv, createRemoveBtn, createSubmitButton, 
   createDisabledInputLi} from './new-elements';
-import { calculateRoute, getAllPairs, toMatrixForm } from './calculate-route';
+import { calculateRoute, getAllPairs, toMatrixForm, tsp } from './calculate-route';
 export {handleNewInput, setupStartingInput, handleCalculateRoute}
 
 function setupStartingInput() {
@@ -27,7 +27,8 @@ function handleCalculateRoute() {
     getAddresses(inputArr)
       .then(distances => {
         const matrix = toMatrixForm(distances, inputArr.length-1);
-        console.log(matrix)
+        const value = tsp(matrix, inputArr.length)
+        console.log(value)
       })
   });
 }
