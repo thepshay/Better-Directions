@@ -2,7 +2,7 @@ import Address from "./address";
 import { loadMap } from "./loadmap";
 import {createInputDiv, createRemoveBtn, createSubmitButton, 
   createDisabledInputLi} from './new-elements';
-import { calculateRoute, getAllPairs } from './calculate-route';
+import { calculateRoute, getAllPairs, toMatrixForm } from './calculate-route';
 export {handleNewInput, setupStartingInput, handleCalculateRoute}
 
 function setupStartingInput() {
@@ -24,7 +24,11 @@ function handleCalculateRoute() {
     const inputArr = storeInput(e);
 
     // TODO: find a way to get extra geocode
-    handleInputs(inputArr)
+    getAddresses(inputArr)
+      .then(distances => {
+        const matrix = toMatrixForm(distances, inputArr.length-1);
+        console.log(matrix)
+      })
   });
 }
 
@@ -65,7 +69,7 @@ function storeInput(e) {
 }
 
 // TODO: A Function to process inputs 
-async function handleInputs(inputArr) {
+async function getAddresses(inputArr) {
 
   try {
     const addresses = await Promise.all(inputArr.map(input => getGeocode(input)));
@@ -75,7 +79,7 @@ async function handleInputs(inputArr) {
       return calculateRoute(pair[0], pair[1]);
     }));
     
-    console.log(distances);
+    return distances
   } catch (e) {
     alert(e)
   }
@@ -102,9 +106,6 @@ function getGeocode(address) {
 function addMarkers(addresses) {
   const map = loadMap();
   addresses.forEach((address, index) => {
-
-    console.log(address)
-
     const addrGeocode = {
       lat: address.lat,
       lng: address.lng
@@ -120,7 +121,7 @@ function addMarkers(addresses) {
     if (index === 0) {
       map.setCenter(addrGeocode);
       map.setZoom(10);
-      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
     }
   })
 }

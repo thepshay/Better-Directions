@@ -7,11 +7,10 @@ const endAddr = new Address('Rosemead, CA, USA', 34.0805651, -118.072846);
 export function getAllPairs(addresses) {
   const allPairs = [];
   for (let i = 0; i < addresses.length; i++) {
-    for (let j = i+1; j < addresses.length; j++){
-      const addr1 = addresses[i];
-      const addr2 = addresses[j];
-      allPairs.push([addr1, addr2]);
-      allPairs.push([addr2, addr1]);
+    for (let j = 0; j < addresses.length; j++){
+      if (i != j) {
+        allPairs.push([addresses[i], addresses[j]])
+      }
     }
   }
   return allPairs;
@@ -46,4 +45,17 @@ export function calculateRoute(startAddr, endAddr) {
       }
     });
   })
+}
+
+export function toMatrixForm(distances, num) {
+  let dup = distances.slice();
+  const matrix = [];
+
+  for (let i = 0; i < num+1; i++) {
+    const temp = dup.slice(0, num);
+    const row = temp.slice(0, i).concat([null], temp.slice(i));
+    dup = dup.slice(num)
+    matrix.push(row)
+  }
+  return matrix;
 }
