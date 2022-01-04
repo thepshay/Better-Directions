@@ -5,4 +5,12 @@ export default class Distance {
     this.distance = distance;
     this.duration = duration;
   }
+
+  getDistanceNumeric(measurementType) {
+    let dist = 0;
+    if (distance.includes(measurementType)) {
+      dist = parseFloat(distance.split(' '));
+    }
+    return dist;
+  }
 }

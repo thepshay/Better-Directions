@@ -47,6 +47,7 @@ export function calculateRoute(startAddr, endAddr) {
   })
 }
 
+// converts distance to a n by n matrix
 export function toMatrixForm(distances, num) {
   let dup = distances.slice();
   const matrix = [];
