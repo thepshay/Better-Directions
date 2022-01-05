@@ -92,8 +92,22 @@ body {
   z-index: 10;
 }
 
-#map {
+.wrapper {
   flex: 1;
+}
+
+#map {
+  height: 100%;
+  width: 100%
+}
+
+.loading-grayscreen {
+  height: 100%;
+  width: 100%;
+  background-color: darkslategray;
+  position: absolute; 
+  z-index: 10;
+  opacity: .7;
 }
 /*!**********************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/address-bar.css ***!
@@ -169,13 +183,6 @@ body {
   background-color: #0077B6;
 }
 
-.loading-grayscreen {
-  background-color: darkslategray;
-  z-index: 10;
-  height: 100%;
-  width: 100%;
-  opacity: 0.5;
-}
 /*!*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
   \*************************************************************************************************************************************/

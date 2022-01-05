@@ -77,9 +77,11 @@ function storeInput(e) {
 // Displays route from directions
 function displayRoute(inputArr) {
   const map = loadMap();
+  const loadingDiv = document.querySelector('.loading-grayscreen')
 
   getAddressesAsync(inputArr)
       .then(addresses => {
+        loadingDiv.classList.remove('hidden')
         addMarkers(addresses, map)
         return getDistancesAsync(addresses)
       }).then(distances => {
@@ -95,6 +97,7 @@ function displayRoute(inputArr) {
         });
         alert(tempAlert);
         console.log(tempAlert)
+        loadingDiv.classList.add('hidden')
       }
       ).catch(error => {
         alert(error)
