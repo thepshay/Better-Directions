@@ -1,7 +1,7 @@
 import { loadMap, getGeocode, addAutocomplete, calculateRoute, addMarkers, 
   showRoute } from "./map";
 import { createInputDiv, createDisabledInputLi, insertDirections } from './new-elements';
-import { getAllPairs, timeToStr, toMatrixForm, tsp, calculateTime } from './calculation';
+import { getAllPairs, timeToStr, toMatrixForm, tsp, calculateTime, calculateDistance } from './calculation';
 
 // loads all sidebar functions 
 export function loadSubmitSidebarFunctions() {
@@ -179,6 +179,9 @@ function displayDirection(directions) {
   const durationStr = timeToStr(duration);
   insertDuration(durationStr);
 
+  const distance = calculateDistance(directions);
+  insertDistance(distance)
+
   openTab('direction');
 }
 
@@ -186,4 +189,10 @@ function insertDuration(duration) {
   const durationP = document.querySelector('.duration');
   durationP.textContent = `Total Time: ${duration}`;
 }
+
+function insertDistance(distance) {
+  const distanceP = document.querySelector('.distance');
+  distanceP.textContent = `Total Distance: ${distance} mi`
+}
+
 

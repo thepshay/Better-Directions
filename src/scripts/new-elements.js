@@ -54,6 +54,7 @@ function createDisabledInputLi() {
 // Adds new li items to direction list ul
 export function insertDirections(directions) {
   const dirUl = document.querySelector('.direction-list');
+  clearUl(dirUl);
 
   const dirLi = document.createElement('li');
   const dirP = document.createElement('p');
@@ -69,5 +70,11 @@ export function insertDirections(directions) {
     dirP.textContent = `${i+1}: ${directions[i].endAddr.addr}`
     dirLi.appendChild(dirP);
     dirUl.appendChild(dirLi);
+  }
+}
+
+function clearUl(ul) {
+  while(ul.firstChild) {
+    ul.removeChild(ul.firstChild);
   }
 }

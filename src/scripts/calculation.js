@@ -128,3 +128,11 @@ function createStr(day, hr, min) {
   }
   return strTime;
 }
+
+export function calculateDistance(directions) {
+  let dist = 0;
+  for (let i = 0; i < directions.length; i++) {
+    dist += directions[i].getDistance();
+  }
+  return dist;
+}
