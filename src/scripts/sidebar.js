@@ -40,7 +40,7 @@ function addNewInputBar(e) {
     const disabledLi = createDisabledInputLi()
     addressUl.appendChild(disabledLi);
 
-    if (document.querySelectorAll('.address-list li').length === 9) {
+    if (document.querySelectorAll('.address-list li').length === 11) {
       disabledLi.classList.add('hidden')
     }
 

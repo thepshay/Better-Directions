@@ -26,7 +26,6 @@ function createRemoveBtn() {
 
   removeBtn.addEventListener('click', e=> {
     e.stopPropagation();
-    console.log('trash');
     removeLi(e);
   })
   return removeBtn;
@@ -36,7 +35,6 @@ function createRemoveBtn() {
 function removeLi(e) {
   const currLi = e.target.parentNode.parentNode;
   currLi.remove();
-
   if (document.querySelectorAll('.address-list li').length === 10) {
     const hiddenLi = document.querySelector("li.hidden"); 
     console.log(hiddenLi)
