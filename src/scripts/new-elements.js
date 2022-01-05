@@ -1,7 +1,7 @@
 export {createInputDiv, createRemoveBtn,createDisabledInputLi}
 
+// Creates a new Input Div, adds necessary classes
 function createInputDiv() {
-  // const submitBtn = createSubmitButton();
   const removeBtn = createRemoveBtn();
 
   const divContainer = document.createElement('div');
@@ -13,14 +13,12 @@ function createInputDiv() {
   addressInput.setAttribute('spellcheck', 'false');
   addressInput.setAttribute('placeholder', 'Enter Additional Address');
 
-
   divContainer.appendChild(addressInput);
-  // divContainer.appendChild(submitBtn);
   divContainer.appendChild(removeBtn);
   return divContainer
 }
 
-
+// Creates a new Removebutton, adds necessary classes
 function createRemoveBtn() {
   const removeBtn = document.createElement('button');
   removeBtn.classList.add('remove-address');
@@ -34,13 +32,7 @@ function createRemoveBtn() {
   return removeBtn;
 }
 
-function createDisabledInputLi() {
-  const disabledLi = document.createElement('li');
-  disabledLi.classList.add('address-list-item');
-  disabledLi.classList.add('input-additional');
-  return disabledLi;
-}
-
+// Removes the li that hosts the remove button
 function removeLi(e) {
   const currLi = e.target.parentNode.parentNode;
   currLi.remove();
@@ -53,20 +45,10 @@ function removeLi(e) {
   }
 }
 
-// function createSubmitButton() {
-//   const submitBtn = document.createElement('button');
-//   submitBtn.classList.add('submit-address');
-//   submitBtn.textContent  = '✔️';
-
-//   submitBtn.addEventListener('click', e=> {
-//     e.stopPropagation();
-//     submitAddress(e);
-//   });
-//   return submitBtn;
-// }
-
-// function submitAddress(e) {
-//   const parentDiv = e.target.parentNode;
-//   const input = parentDiv.querySelector('input.address-input');
-//   console.log(input.value)
-// }
+// Creates a new disabled input
+function createDisabledInputLi() {
+  const disabledLi = document.createElement('li');
+  disabledLi.classList.add('address-list-item');
+  disabledLi.classList.add('input-additional');
+  return disabledLi;
+}

@@ -1,8 +1,6 @@
 import {config} from '../config'
-import Address from './scripts/address';
-import { getDistance, calculateRoute , allDistArr} from './scripts/calculate-route';
-import {loadMap} from './scripts/loadmap'
-import {handleNewInput, setupStartingInput, handleCalculateRoute} from './scripts/sidebar'
+import {loadMap} from './scripts/map'
+import {loadSubmitSidebarFunctions} from './scripts/sidebar'
 
 // console.log('sanity check, index.js')
 
@@ -16,8 +14,6 @@ document.head.appendChild(script);
 
 // Attach your callback function to the `window` object
 window.initMap = function() {
-  const map = loadMap();
-  setupStartingInput();
-  handleNewInput();
-  handleCalculateRoute();
+  loadMap();
+  loadSubmitSidebarFunctions();
 };

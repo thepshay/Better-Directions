@@ -1,38 +1,35 @@
-import Address from "./address";
-import { loadMap } from "./loadmap";
-import {createInputDiv, createRemoveBtn, createSubmitButton, 
-  createDisabledInputLi} from './new-elements';
-import { calculateRoute, getAllPairs, toMatrixForm, tsp, showRoute } from './calculate-route';
-export {handleNewInput, setupStartingInput, handleCalculateRoute}
+import { loadMap, getGeocode, addAutocomplete, calculateRoute, addMarkers, 
+  showRoute } from "./map";
+import { createInputDiv, createDisabledInputLi } from './new-elements';
+import { getAllPairs, toMatrixForm, tsp } from './calculation';
 
+// loads all sidebar functions 
+export function loadSubmitSidebarFunctions() {
+  setupStartingInput();
+  handleNewInput();
+  handleCalculateRoute();
+}
+
+// handles the first input 
 function setupStartingInput() {
   const startLi = document.querySelector('.start-address');
-  const startInput = document.querySelector('.start-address input');
+  const startInput = startLi.querySelector('.start-address input');
   addAutocomplete(startInput);
 }
 
+// handles every new input generated
 function handleNewInput() {
   const addressUl = document.querySelector(".address-list");
+
+  // when click on gray box, adds a new input bar
   addressUl.addEventListener('click', e=>{
     addNewInputBar(e);
   })
 }
 
-function handleCalculateRoute() {
-  const calculateBtn = document.querySelector('.submit-btn');
-  calculateBtn.addEventListener('click', e=>{
-    const inputArr = storeInput(e);
-    displayRoute(inputArr);
-  });
-}
-
-function addAutocomplete(input) {
-  const autocompleteOptions = {
-    types: []
-  }
-  const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions)
-}
-
+// Undisables li, and appends a new input div
+// Adds a new disabled li 
+// Limits user to 9 input addresses
 function addNewInputBar(e) {
   if (e.target && e.target.matches('li.input-additional')){
     const newLi = document.querySelector('.input-additional');
@@ -43,7 +40,7 @@ function addNewInputBar(e) {
     const disabledLi = createDisabledInputLi()
     addressUl.appendChild(disabledLi);
 
-    if (document.querySelectorAll('.address-list li').length === 11) {
+    if (document.querySelectorAll('.address-list li').length === 9) {
       disabledLi.classList.add('hidden')
     }
 
@@ -52,6 +49,18 @@ function addNewInputBar(e) {
   }
 }
 
+// stores the input addresses of the user
+// calculates the best route for given addresses
+// displays marker and route
+function handleCalculateRoute() {
+  const calculateBtn = document.querySelector('.submit-btn');
+  calculateBtn.addEventListener('click', e=>{
+    const inputArr = storeInput(e);
+    displayRoute(inputArr);
+  });
+}
+
+// stores the input of the user and returns array of inputs
 function storeInput(e) {
   const inputArr = [];
   const addressUl = document.querySelectorAll(".address-list-item:not(.input-additional)");
@@ -62,79 +71,24 @@ function storeInput(e) {
   return inputArr;
 }
 
-async function getAddresses(inputArr) {
-  const addresses = await Promise.all(inputArr.map(input => getGeocode(input)));
-  return addresses
-}
-
-async function getDistances(addresses){
-  const pairs = getAllPairs(addresses);
-
-  const distances = await Promise.all(pairs.map(async pair => {
-    return calculateRoute(pair[0], pair[1]);
-  }));
-  return distances
-}
-
-async function getRoute(directions, map) {
-  await Promise.all(directions.map(direction => showRoute(direction, map)));
-}
-
-
-function getGeocode(address) {
-  return new Promise((resolve, reject) => {
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ 'address' : address }, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        const currLat = results[0].geometry.location.lat();
-        const currLng = results[0].geometry.location.lng();
-        const newAddr = new Address(address, currLat, currLng);
-        resolve(newAddr)
-      } else {
-        reject(new Error(`Cannot find address "${address}". Please try again \nStatus: ${status}`))
-      }
-    })
-  });
-}
-
-// adds markers to given addresses, centers map at the first input
-function addMarkers(addresses, map) {
-  addresses.forEach((address, index) => {
-    const addrGeocode = {
-      lat: address.lat,
-      lng: address.lng
-    }
-
-    const markerOptions = {
-      map: map,
-      position: addrGeocode,
-      animation: google.maps.Animation.DROP
-    }
-
-    const marker = new google.maps.Marker(markerOptions);
-    if (index === 0) {
-      map.setCenter(addrGeocode);
-      map.setZoom(10);
-      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-    }
-  })
-}
-
+// Turns inputArr into array of address objects
+// Calculates direction from all addresses 
+// Calculates the best route to take from given directions
+// Displays route from directions
 function displayRoute(inputArr) {
   const map = loadMap();
 
-
-  getAddresses(inputArr)
+  getAddressesAsync(inputArr)
       .then(addresses => {
         addMarkers(addresses, map)
-        return getDistances(addresses)
+        return getDistancesAsync(addresses)
       }).then(distances => {
         const matrix = toMatrixForm(distances, inputArr.length-1);
         const directionIndex =  tsp(matrix, inputArr.length);
         const directions = getDirections(matrix, directionIndex);
-        getRoute(directions, map);
         return Promise.resolve(directions)
       }).then( directions => {
+        getRouteAsync(directions, map);
         let tempAlert = 'Best path to take is:\n';
         directions.forEach(direction =>{
           tempAlert += `${direction.startAddr.addr}\n`
@@ -145,6 +99,24 @@ function displayRoute(inputArr) {
       ).catch(error => {
         alert(error)
       });
+}
+
+async function getAddressesAsync(inputArr) {
+  const addresses = await Promise.all(inputArr.map(input => getGeocode(input)));
+  return addresses
+}
+
+async function getDistancesAsync(addresses){
+  const pairs = getAllPairs(addresses);
+
+  const distances = await Promise.all(pairs.map(async pair => {
+    return calculateRoute(pair[0], pair[1]);
+  }));
+  return distances
+}
+
+async function getRouteAsync(directions, map) {
+  await Promise.all(directions.map(direction => showRoute(direction, map)));
 }
 
 function getDirections(matrix, directionIndex) {

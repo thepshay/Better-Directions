@@ -14,6 +14,4 @@ export default class Distance {
     }
     return dist;
   }
-
-  // getDistance(startAddr, endAddr)
 }
