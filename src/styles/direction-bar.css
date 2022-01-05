@@ -1,0 +1,37 @@
+.directions-display-tab h1 {
+  font-size: 36px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 10px;
+}
+
+.direction-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 20px;
+}
+
+.direction-item {
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: cadetblue solid 1px;
+}
+
+.direction-list p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+}
+
+.summary{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.summary p {
+  margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+}

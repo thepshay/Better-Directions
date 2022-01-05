@@ -50,3 +50,24 @@ function createDisabledInputLi() {
   disabledLi.classList.add('input-additional');
   return disabledLi;
 }
+
+// Adds new li items to direction list ul
+export function addDirections(directions) {
+  const dirUl = document.querySelector('.direction-list');
+
+  const dirLi = document.createElement('li');
+  const dirP = document.createElement('p');
+  dirLi.classList.add('direction-item');
+  dirP.textContent = `Start: ${directions[0].startAddr.addr}`
+  dirLi.appendChild(dirP);
+  dirUl.appendChild(dirLi);
+
+  for (let i = 0; i < directions.length; i++) {
+    const dirLi = document.createElement('li');
+    const dirP = document.createElement('p');
+    dirLi.classList.add('direction-item')
+    dirP.textContent = `${i+1}: ${directions[i].endAddr.addr}`
+    dirLi.appendChild(dirP);
+    dirUl.appendChild(dirLi);
+  }
+}

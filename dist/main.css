@@ -121,7 +121,7 @@ body {
   border: 2px solid black;
 }
 
-p {
+.loading-grayscreen p {
   margin: 20px 0;
   color: white
 }
@@ -220,8 +220,8 @@ p {
 
 .tab {
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  /* border: 1px solid #ccc; */
+  background-color: #ccc;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -242,10 +242,54 @@ p {
 }
 
 .tab button.active {
-  background-color: #ccc;
+  background-color: #f1f1f1;
 }
 
 .tabcontent {
+}
+
+.directions-display-tab ul{
+  color: black;
+}
+/*!************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/direction-bar.css ***!
+  \************************************************************************************************************/
+.directions-display-tab h1 {
+  font-size: 36px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 10px;
+}
+
+.direction-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 20px;
+}
+
+.direction-item {
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: cadetblue solid 1px;
+}
+
+.direction-list p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+}
+
+.summary{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.summary p {
+  margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
 }
 /*!*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!

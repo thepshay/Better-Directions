@@ -12,7 +12,7 @@
   border: 2px solid black;
 }
 
-p {
+.loading-grayscreen p {
   margin: 20px 0;
   color: white
 }

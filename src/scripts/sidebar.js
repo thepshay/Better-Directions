@@ -1,6 +1,6 @@
 import { loadMap, getGeocode, addAutocomplete, calculateRoute, addMarkers, 
   showRoute } from "./map";
-import { createInputDiv, createDisabledInputLi } from './new-elements';
+import { createInputDiv, createDisabledInputLi, addDirections } from './new-elements';
 import { getAllPairs, toMatrixForm, tsp } from './calculation';
 
 // loads all sidebar functions 
@@ -15,16 +15,16 @@ function handleTabs() {
   const inputTab = document.querySelector('#input-tab');
   const dirTab = document.querySelector('#direction-tab');
 
-  inputTab.addEventListener('click', (e, id)=>{
-    openTab(e, 'input')
+  inputTab.addEventListener('click', (e)=>{
+    openTab('input', e)
   })
 
-  dirTab.addEventListener('click', (e, id) => {
-    openTab(e, 'direction')
+  dirTab.addEventListener('click', (e) => {
+    openTab('direction', e)
   })
 }
 
-function openTab(e, id) {
+function openTab(id, e = null) {
   const tabcontent = document.getElementsByClassName('tabcontent');
   for (let i = 0; i < tabcontent.length; i++) {
     tabcontent[i].classList.add('hidden')
@@ -35,7 +35,11 @@ function openTab(e, id) {
     tablinks[i].classList.remove('active')
   }
 
-  e.currentTarget.classList.add('active');
+  if (e === null) {
+    document.getElementById('direction-tab').classList.add('active')
+  } else {
+    e.currentTarget.classList.add('active');
+  }
   document.getElementById(id).classList.remove('hidden')
 }
 
@@ -128,12 +132,7 @@ function displayRoute(inputArr) {
         return Promise.resolve(directions)
       }).then( directions => {
         getRouteAsync(directions, map, calculateBtn);
-        let tempAlert = 'Best path to take is:\n';
-        directions.forEach(direction =>{
-          tempAlert += `${direction.startAddr.addr}\n`
-        });
-        // alert(tempAlert);
-        console.log(tempAlert)
+        displayDirection(directions);
         loadingDiv.classList.add('hidden')
       }
       ).catch(error => {
@@ -169,4 +168,16 @@ function getDirections(matrix, directionIndex) {
     directions.push(dir);
   }
   return directions;
+}
+
+function displayDirection(directions) {
+  document.querySelector('.start-header').classList.add('hidden');
+  document.querySelector('.direction-header').classList.remove('hidden');
+
+  addDirections(directions)
+
+  // alert(tempAlert);
+  // console.log(tempAlert)
+
+  openTab('direction')
 }

@@ -76,8 +76,8 @@
 
 .tab {
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  /* border: 1px solid #ccc; */
+  background-color: #ccc;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -98,8 +98,12 @@
 }
 
 .tab button.active {
-  background-color: #ccc;
+  background-color: #f1f1f1;
 }
 
 .tabcontent {
+}
+
+.directions-display-tab ul{
+  color: black;
 }
