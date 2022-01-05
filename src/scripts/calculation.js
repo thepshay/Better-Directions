@@ -87,3 +87,44 @@ export function tsp(matrix, vertices, startingIdx = 0) {
   })
   return minPath; 
 }
+
+export function calculateTime(directions) {
+  let timeMin = 0;
+  for (let i = 0; i < directions.length; i++) {
+    timeMin += directions[i].getDurationMin();
+  }
+  return timeMin;
+}
+
+export function timeToStr(time) {
+  let day = 0;
+  let hour = 0;
+  let min = 0;
+  while (time > 0) {
+    if (time > 1440) {
+      day = Math.floor(time / 1440);
+      time = time - (day * 1400)
+    } else if (time > 60) {
+      hour = Math.floor(time / 60);
+      time = time - (hour * 60);
+    } else {
+      min = time;
+      time = 0;
+    }
+  }
+  return createStr(day, hour, min);
+}
+
+function createStr(day, hr, min) {
+  let strTime = ''
+  if (day > 0) {
+    strTime += `${day} day`
+  }
+  if (hr > 0) {
+    strTime += ` ${hr} hr`
+  }
+  if (min > 0) {
+    strTime += ` ${min} min`
+  }
+  return strTime;
+}

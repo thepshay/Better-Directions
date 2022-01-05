@@ -1,7 +1,7 @@
 import { loadMap, getGeocode, addAutocomplete, calculateRoute, addMarkers, 
   showRoute } from "./map";
-import { createInputDiv, createDisabledInputLi, addDirections } from './new-elements';
-import { getAllPairs, toMatrixForm, tsp } from './calculation';
+import { createInputDiv, createDisabledInputLi, insertDirections } from './new-elements';
+import { getAllPairs, timeToStr, toMatrixForm, tsp, calculateTime } from './calculation';
 
 // loads all sidebar functions 
 export function loadSubmitSidebarFunctions() {
@@ -173,11 +173,17 @@ function getDirections(matrix, directionIndex) {
 function displayDirection(directions) {
   document.querySelector('.start-header').classList.add('hidden');
   document.querySelector('.direction-header').classList.remove('hidden');
+  insertDirections(directions);
 
-  addDirections(directions)
+  const duration = calculateTime(directions);
+  const durationStr = timeToStr(duration);
+  insertDuration(durationStr);
 
-  // alert(tempAlert);
-  // console.log(tempAlert)
-
-  openTab('direction')
+  openTab('direction');
 }
+
+function insertDuration(duration) {
+  const durationP = document.querySelector('.duration');
+  durationP.textContent = `Total Time: ${duration}`;
+}
+
