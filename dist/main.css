@@ -58,56 +58,52 @@ input {
 	outline: none;
 }
 
-/*!*****************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/header.css ***!
-  \*****************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/main.css ***!
+  \***************************************************************************************************/
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .header {
   background-color: #48CAE4;
-  height: 50px;
-  width: 100vw;
   font-family: 'Courier New', Courier, monospace;
   font-size: 36px;
   font-weight: bold;
+  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-/*!************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/map-container.css ***!
-  \************************************************************************************************************/
+
 .map-container {
   display: flex;
   flex-direction: row;
-
+  flex-grow: 1;
 }
 
 .address-bar{
-  width: 500px;
-  height: 100vh;
-  border-right: 2px solid black;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
   box-shadow: 3px 3px 8px #888888;
   z-index: 10;
 }
 
 #map {
-  height: 100vh;
-  width: 100vw;
+  flex: 1;
 }
-
-
 /*!**********************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/address-bar.css ***!
   \**********************************************************************************************************/
-/* .address-bar * {
-  border: 1px solid red;
-} */
-
-/* individual list items */
 .address-list-item {
-  width: 98%;
+  box-sizing: border-box;
+  width: 95%;
   height: 50px;
   margin: 5px auto;
-  border: 3px solid lightblue;
+  border: 3px solid #90E0EF;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -153,6 +149,33 @@ input {
   display: none;
 }
 
+.submit-btn {
+  width: 95%;
+  height: 50px;
+  margin: 5px auto;
+  background-color: #0096C7;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.submit-btn:hover{
+  background-color: #0077B6;
+}
+
+.loading-grayscreen {
+  background-color: darkslategray;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+}
 /*!*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
   \*************************************************************************************************************************************/

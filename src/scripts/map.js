@@ -58,7 +58,10 @@ export function addMarkers(addresses, map) {
 
 export function showRoute(direction, map) {
   return new Promise((resolve, reject) => {
-    const directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
+    const directionsRenderer = new google.maps.DirectionsRenderer({
+      suppressMarkers: true,
+      preserveViewport: true
+    });
     directionsRenderer.setMap(map);      
     directionsRenderer.setDirections(direction.response);
   })
