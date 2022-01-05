@@ -31,18 +31,12 @@ body {
 
 .wrapper {
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #map {
   height: 100%;
   width: 100%
-}
-
-.loading-grayscreen {
-  height: 100%;
-  width: 100%;
-  background-color: darkslategray;
-  position: absolute; 
-  z-index: 10;
-  opacity: .7;
 }

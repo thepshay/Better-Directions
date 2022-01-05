@@ -85,9 +85,9 @@ export function calculateRoute(startAddr, endAddr) {
         resolve(dist)
       } else if (status === google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
         setTimeout(() => {
-          console.log('Prevent OVER QUERY LIMIT, set delay to 2 second')
+          console.log('OVER QUERY LIMIT, Pause for 1.5 second')
           resolve(calculateRoute(startAddr, endAddr));
-        }, 2000);
+        }, 1500);
       } else {
         const error = new Error(`Unable to calculate route from ${startAddr.addr} to ${endAddr.addr}\nStatus: ${status}`)
         reject(error)

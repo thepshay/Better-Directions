@@ -54,10 +54,13 @@ function addNewInputBar(e) {
 // displays marker and route
 function handleCalculateRoute() {
   const calculateBtn = document.querySelector('.submit-btn');
-  calculateBtn.addEventListener('click', e=>{
-    const inputArr = storeInput(e);
-    displayRoute(inputArr);
-  });
+  calculateBtn.addEventListener('click',calculateRouteFromInput);
+}
+
+function calculateRouteFromInput(e) {
+  console.log('hi')
+  const inputArr = storeInput(e);
+  displayRoute(inputArr);
 }
 
 // stores the input of the user and returns array of inputs
@@ -78,10 +81,15 @@ function storeInput(e) {
 function displayRoute(inputArr) {
   const map = loadMap();
   const loadingDiv = document.querySelector('.loading-grayscreen')
+  const calculateBtn = document.querySelector('.submit-btn');
+  calculateBtn.removeEventListener('click',calculateRouteFromInput);
 
   getAddressesAsync(inputArr)
       .then(addresses => {
-        loadingDiv.classList.remove('hidden')
+        // only add loading screen if calculations take a significant time
+        if (addresses.length > 3) {
+          loadingDiv.classList.remove('hidden')
+        }
         addMarkers(addresses, map)
         return getDistancesAsync(addresses)
       }).then(distances => {
@@ -90,16 +98,18 @@ function displayRoute(inputArr) {
         const directions = getDirections(matrix, directionIndex);
         return Promise.resolve(directions)
       }).then( directions => {
-        getRouteAsync(directions, map);
+        getRouteAsync(directions, map, calculateBtn);
         let tempAlert = 'Best path to take is:\n';
         directions.forEach(direction =>{
           tempAlert += `${direction.startAddr.addr}\n`
         });
-        alert(tempAlert);
+        // alert(tempAlert);
         console.log(tempAlert)
         loadingDiv.classList.add('hidden')
       }
       ).catch(error => {
+        calculateBtn.addEventListener('click',calculateRouteFromInput);
+        loadingDiv.classList.add('hidden')
         alert(error)
       });
 }
@@ -118,7 +128,8 @@ async function getDistancesAsync(addresses){
   return distances
 }
 
-async function getRouteAsync(directions, map) {
+async function getRouteAsync(directions, map, calculateBtn) {
+  calculateBtn.addEventListener('click',calculateRouteFromInput);
   await Promise.all(directions.map(direction => showRoute(direction, map)));
 }
 

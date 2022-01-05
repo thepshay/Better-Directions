@@ -1,0 +1,31 @@
+.loading-grayscreen {
+  height: 90%;
+  width: 75%;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute; 
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  border: 2px solid black;
+}
+
+p {
+  margin: 20px 0;
+  color: white
+}
+
+.cat {
+  width: 25%;
+  height: auto;
+}
+
+.doing-calculations {
+  font-size: 36px;
+}
+
+.gif-source {
+  font-size: 12px;
+}

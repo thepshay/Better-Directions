@@ -31,6 +31,7 @@
 /* delete address button */
 .remove-address {
   font-size: 12px;
+  cursor: pointer;
 }
 
 /* toggle for creating additional input li elements */

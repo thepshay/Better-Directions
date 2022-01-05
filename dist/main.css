@@ -94,6 +94,9 @@ body {
 
 .wrapper {
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #map {
@@ -101,14 +104,41 @@ body {
   width: 100%
 }
 
+/*!******************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/loading.css ***!
+  \******************************************************************************************************/
 .loading-grayscreen {
-  height: 100%;
-  width: 100%;
-  background-color: darkslategray;
+  height: 90%;
+  width: 75%;
+  background-color: rgba(0, 0, 0, 0.8);
   position: absolute; 
-  z-index: 10;
-  opacity: .7;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  border: 2px solid black;
 }
+
+p {
+  margin: 20px 0;
+  color: white
+}
+
+.cat {
+  width: 25%;
+  height: auto;
+}
+
+.doing-calculations {
+  font-size: 36px;
+}
+
+.gif-source {
+  font-size: 12px;
+}
+
 /*!**********************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/address-bar.css ***!
   \**********************************************************************************************************/
@@ -145,6 +175,7 @@ body {
 /* delete address button */
 .remove-address {
   font-size: 12px;
+  cursor: pointer;
 }
 
 /* toggle for creating additional input li elements */
