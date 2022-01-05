@@ -1,0 +1,35 @@
+.header {
+  background-color: #48CAE4;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 36px;
+  font-weight: bold;
+  /* padding: 5px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.title {
+  /* margin: auto 0; */
+}
+
+.link-container {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 15px;
+}
+
+.link-container div {
+  padding: 10px 15px;
+}
+
+.link-container div:hover {
+  background-color: #0077B6;
+}
+
+.link-container a:visited {
+  color: inherit;
+}

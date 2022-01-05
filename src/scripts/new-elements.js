@@ -59,7 +59,7 @@ export function insertDirections(directions) {
   const dirLi = document.createElement('li');
   const dirP = document.createElement('p');
   dirLi.classList.add('direction-item');
-  dirP.textContent = `Start: ${directions[0].startAddr.addr}`
+  dirP.innerHTML = `<i class="fas fa-chevron-right"></i> Start: ${directions[0].startAddr.addr}`
   dirLi.appendChild(dirP);
   dirUl.appendChild(dirLi);
 
@@ -70,6 +70,11 @@ export function insertDirections(directions) {
     dirP.textContent = `${i+1}: ${directions[i].endAddr.addr}`
     dirLi.appendChild(dirP);
     dirUl.appendChild(dirLi);
+
+    if ( i === directions.length-1) {
+      dirP.innerHTML = `<i class="fas fa-flag-checkered"></i> Finish: ${directions[i].endAddr.addr}`
+    }
+
   }
 }
 
