@@ -3,7 +3,6 @@ export default class Distance {
     this.startAddr = startAddr;
     this.endAddr = endAddr;
     this.response = response;
-    this.getDurationMin()
   }
 
   getDistance() {

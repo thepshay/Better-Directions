@@ -5,9 +5,38 @@ import { getAllPairs, toMatrixForm, tsp } from './calculation';
 
 // loads all sidebar functions 
 export function loadSubmitSidebarFunctions() {
+  handleTabs();
   setupStartingInput();
   handleNewInput();
   handleCalculateRoute();
+}
+
+function handleTabs() {
+  const inputTab = document.querySelector('#input-tab');
+  const dirTab = document.querySelector('#direction-tab');
+
+  inputTab.addEventListener('click', (e, id)=>{
+    openTab(e, 'input')
+  })
+
+  dirTab.addEventListener('click', (e, id) => {
+    openTab(e, 'direction')
+  })
+}
+
+function openTab(e, id) {
+  const tabcontent = document.getElementsByClassName('tabcontent');
+  for (let i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].classList.add('hidden')
+  }
+
+  const tablinks = document.getElementsByClassName('tablinks');
+  for (let i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove('active')
+  }
+
+  e.currentTarget.classList.add('active');
+  document.getElementById(id).classList.remove('hidden')
 }
 
 // handles the first input 

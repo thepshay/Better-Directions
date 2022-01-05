@@ -18,18 +18,32 @@
 
   <div class='map-container'>
     <div class='address-bar'>
-      <ul class='address-list'>
-        <li class='address-list-item start-address'>
-          <div class="search-div">
-            <input class='address-input' type="text" spellcheck="false" placeholder="Enter Starting Address">
-          </div>
-        </li>
-        <li class='address-list-item input-additional'>
-          <div class="search-div hidden">
-          </div>
-        </li>
-      </ul>
-      <div class='submit-btn'><p>Calculate Route</p></div>
+
+      <div class="tab">
+        <button id='input-tab' class="tablinks active">Inputs</button>
+        <button id='direction-tab' class="tablinks">Directions</button>
+      </div>
+
+      <div id='input' class='input-address-tab tabcontent'>
+        <ul class='address-list'>
+          <li class='address-list-item start-address'>
+            <div class="search-div">
+              <input class='address-input' type="text" spellcheck="false" placeholder="Enter Starting Address">
+            </div>
+          </li>
+          <li class='address-list-item input-additional'>
+            <div class="search-div hidden">
+            </div>
+          </li>
+        </ul>
+        <div class='submit-btn'><p>Calculate Route</p></div>
+      </div>
+
+      <div id='direction' class='directions-display-tab tabcontent hidden'>
+        <h3>Start by entering some addresses!</h3>
+      </div>
+
+      
     </div>
     <div class='wrapper'>
       <div class='loading-grayscreen hidden'>
