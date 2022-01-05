@@ -19,10 +19,11 @@
   display: flex;
   flex-direction: row;
   position: absolute;
-  right: 15px;
+  right: 10px;
 }
 
 .link-container div {
+  overflow: hidden;
   padding: 10px 15px;
 }
 
@@ -30,6 +31,12 @@
   background-color: #0077B6;
 }
 
+.link-container a {
+  height: 100%;
+  display: block;
+}
+
 .link-container a:visited {
   color: inherit;
 }
+

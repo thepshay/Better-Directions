@@ -73,7 +73,7 @@ export function tsp(matrix, vertices, startingIdx = 0) {
     currPath.push(curr);
     route.forEach(next => {
       currPath.push(next)
-      currDist += matrix[curr][next].getDurationMin1();
+      currDist += matrix[curr][next].getDurationMin();
       curr = next;
     });
     // return home distance

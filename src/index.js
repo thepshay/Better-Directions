@@ -1,6 +1,7 @@
 import {config} from '../config'
 import {loadMap} from './scripts/map'
 import {loadSubmitSidebarFunctions} from './scripts/sidebar'
+import {handleModal} from './scripts/modal'
 
 // console.log('sanity check, index.js')
 
@@ -16,4 +17,5 @@ document.head.appendChild(script);
 window.initMap = function() {
   loadMap();
   loadSubmitSidebarFunctions();
+  handleModal();
 };

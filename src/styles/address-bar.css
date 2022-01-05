@@ -34,6 +34,12 @@
   cursor: pointer;
 }
 
+#input,
+#direction {
+  background-color: white;
+  height: 100%;
+}
+
 /* toggle for creating additional input li elements */
 .input-additional{
   border: 3px solid lightgray;
