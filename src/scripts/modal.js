@@ -11,7 +11,8 @@ export function handleModal() {
   });
 
   modal.addEventListener('click', e=> {
-    console.log(`target: ${e.target}`);
-    console.log(`current target: ${cur}`)
-  })
+    if (e.target && e.target.matches('div.modal')) {
+      modal.style.display = 'none';
+    }
+  });
 }
