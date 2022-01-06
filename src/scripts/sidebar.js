@@ -161,12 +161,15 @@ async function getDistancesAsync(addresses){
   return distances
 }
 
-// adds .55s for each route query
+// adds 1s for each route query
+// at 1 second delay, get no error at 10 inputs
+// can be a 20-30 second delay for 7+ entries but with errors
+// might call for dynamic adjustment of delay time based off of input size?
 const delayQueryRoute = (addr1, addr2, count) => {
   return new Promise((resolve) => {
     setTimeout( async () => {
       resolve(await calculateRoute(addr1, addr2));
-    }, 550 * count);
+    }, 1000 * count);
   });
 };
 
