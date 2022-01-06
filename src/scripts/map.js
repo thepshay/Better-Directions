@@ -58,6 +58,7 @@ export function addMarkers(addresses, map) {
   });
 }
 
+// adds infowindow to markers
 export function addInfoWindow(markers, addresses, map) {
   markers.forEach((marker, i) => {
     const infoWindowOptions = {
@@ -77,7 +78,6 @@ export function addInfoWindow(markers, addresses, map) {
     
   })
 }
-
 
 // given two addresses returns direction object which holds the response
 export function calculateRoute(startAddr, endAddr) {
