@@ -136,11 +136,15 @@ body {
   display: block;
 }
 
+.link-container a,
+.link-container a:hover
 .link-container a:visited {
-  color: inherit;
+  color: black;
 }
 
-
+.info {
+  cursor: pointer;
+}
 /*!******************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/loading.css ***!
   \******************************************************************************************************/

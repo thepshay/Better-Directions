@@ -36,7 +36,12 @@
   display: block;
 }
 
+.link-container a,
+.link-container a:hover
 .link-container a:visited {
-  color: inherit;
+  color: black;
 }
 
+.info {
+  cursor: pointer;
+}
