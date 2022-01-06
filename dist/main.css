@@ -338,6 +338,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 24px;
 }
+
+.scroll {
+  height: 85vh;
+  overflow: auto;
+}
 /*!****************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/modal.css ***!
   \****************************************************************************************************/

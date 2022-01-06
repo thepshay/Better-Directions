@@ -121,9 +121,7 @@ function displayRoute(inputArr) {
   getAddressesAsync(inputArr)
       .then(addresses => {
         // only add loading screen if calculations take a significant time
-        if (addresses.length > 3) {
-          loadingDiv.classList.remove('hidden')
-        }
+        loadingDiv.classList.remove('hidden')
         const markers = addMarkers(addresses, map);
         addInfoWindow(markers, addresses, map);
         return getDistancesAsync(addresses);

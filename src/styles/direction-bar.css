@@ -35,3 +35,8 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 24px;
 }
+
+.scroll {
+  height: 85vh;
+  overflow: auto;
+}
