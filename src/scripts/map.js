@@ -91,7 +91,6 @@ export function calculateRoute(startAddr, endAddr) {
     }
     directionsService.route(requestOptions, (response, status)=>{
       if (status=='OK'){
-  
         const dist = new Distance(startAddr, endAddr, response);
         resolve(dist)
       } else if (status === google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {

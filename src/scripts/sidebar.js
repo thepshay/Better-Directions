@@ -153,12 +153,22 @@ async function getAddressesAsync(inputArr) {
 
 async function getDistancesAsync(addresses){
   const pairs = getAllPairs(addresses);
-
+  let count = 0;
   const distances = await Promise.all(pairs.map(async pair => {
-    return calculateRoute(pair[0], pair[1]);
+    count++;
+    return delayQueryRoute(pair[0], pair[1], count)
   }));
   return distances
 }
+
+// adds .55s for each route query
+const delayQueryRoute = (addr1, addr2, count) => {
+  return new Promise((resolve) => {
+    setTimeout( async () => {
+      resolve(await calculateRoute(addr1, addr2));
+    }, 550 * count);
+  });
+};
 
 async function getRouteAsync(directions, map, calculateBtn) {
   calculateBtn.addEventListener('click',calculateRouteFromInput);
