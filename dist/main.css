@@ -77,7 +77,7 @@ body {
   width: 400px;
   display: flex;
   flex-direction: column;
-  box-shadow: 3px 3px 8px #888888;
+  box-shadow: 2px 2px 8px #888888;
   z-index: 10;
 }
 
@@ -103,15 +103,12 @@ body {
   font-family: 'Courier New', Courier, monospace;
   font-size: 36px;
   font-weight: bold;
-  /* padding: 5px; */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-}
-
-.title {
-  /* margin: auto 0; */
+  z-index: 10;
+  box-shadow: 0px 2px 10px grey;
 }
 
 .link-container {
@@ -290,9 +287,6 @@ body {
 
 .tab button.active {
   background-color: #f1f1f1;
-}
-
-.tabcontent {
 }
 
 .directions-display-tab ul{
