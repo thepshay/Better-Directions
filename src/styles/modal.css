@@ -12,7 +12,7 @@
 
 .modal-content {
   width: 600px;
-  height: 500px;
+  height: 550px;
   background-color: #CAF0F8;
   border: 5px solid #03045E;
   border-radius: 10px;
@@ -36,4 +36,5 @@
 
 .modal-content p {
   font-size: 20px;
+  line-height: 1.2;
 }

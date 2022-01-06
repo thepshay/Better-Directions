@@ -360,7 +360,7 @@ body {
 
 .modal-content {
   width: 600px;
-  height: 500px;
+  height: 550px;
   background-color: #CAF0F8;
   border: 5px solid #03045E;
   border-radius: 10px;
@@ -384,6 +384,7 @@ body {
 
 .modal-content p {
   font-size: 20px;
+  line-height: 1.2;
 }
 /*!*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
