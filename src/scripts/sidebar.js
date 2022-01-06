@@ -116,6 +116,7 @@ function displayRoute(inputArr) {
   const map = loadMap();
   const loadingDiv = document.querySelector('.loading-grayscreen')
   const calculateBtn = document.querySelector('.submit-btn');
+  calculateBtn.classList.add('submit-btn-disabled')
   calculateBtn.removeEventListener('click',calculateRouteFromInput);
 
   getAddressesAsync(inputArr)
@@ -173,6 +174,7 @@ const delayQueryRoute = (addr1, addr2, count) => {
 
 async function getRouteAsync(directions, map, calculateBtn) {
   calculateBtn.addEventListener('click',calculateRouteFromInput);
+  calculateBtn.classList.remove('submit-btn-disabled')
   await Promise.all(directions.map(direction => showRoute(direction, map)));
 }
 

@@ -76,6 +76,12 @@
   background-color: #0077B6;
 }
 
+.submit-btn-disabled,
+.submit-btn-disabled:hover {
+  background-color: gray;
+  cursor: default;
+}
+
 .input-address-tab {
   flex: 1;
 }
