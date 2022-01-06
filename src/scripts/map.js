@@ -38,7 +38,7 @@ export function addAutocomplete(input) {
 
 // given array of addresses adds marker for each address
 export function addMarkers(addresses, map) {
-  addresses.forEach((address, index) => {
+  return addresses.map((address, index) => {
     const addrGeocode = {
       lat: address.lat,
       lng: address.lng
@@ -54,20 +54,30 @@ export function addMarkers(addresses, map) {
       map.setZoom(10);
       marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
     }
+    return marker;
+  });
+}
+
+export function addInfoWindow(markers, addresses, map) {
+  markers.forEach((marker, i) => {
+    const infoWindowOptions = {
+      map: map,
+      anchor: marker,
+      content: `${addresses[i].addr}`,
+      shouldFocus: false
+    }
+    const infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+    infoWindow.close()
+    marker.addListener( 'mouseover', e=> {
+      infoWindow.open(infoWindowOptions);
+    });
+    marker.addListener('mouseout', e => {
+      infoWindow.close();
+    });
+    
   })
 }
 
-// displays the route for given direction array
-export function showRoute(direction, map) {
-  return new Promise((resolve, reject) => {
-    const directionsRenderer = new google.maps.DirectionsRenderer({
-      suppressMarkers: true,
-      preserveViewport: true
-    });
-    directionsRenderer.setMap(map);      
-    directionsRenderer.setDirections(direction.response);
-  })
-}
 
 // given two addresses returns direction object which holds the response
 export function calculateRoute(startAddr, endAddr) {
@@ -94,5 +104,17 @@ export function calculateRoute(startAddr, endAddr) {
         reject(error)
       }
     });
+  })
+}
+
+// displays the route for given direction array
+export function showRoute(direction, map) {
+  return new Promise((resolve, reject) => {
+    const directionsRenderer = new google.maps.DirectionsRenderer({
+      suppressMarkers: true,
+      preserveViewport: true
+    });
+    directionsRenderer.setMap(map);      
+    directionsRenderer.setDirections(direction.response);
   })
 }

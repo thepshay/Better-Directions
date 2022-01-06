@@ -1,5 +1,5 @@
 import { loadMap, getGeocode, addAutocomplete, calculateRoute, addMarkers, 
-  showRoute } from "./map";
+  showRoute, addInfoWindow } from "./map";
 import { createInputDiv, createDisabledInputLi, insertDirections } from './new-elements';
 import { getAllPairs, timeToStr, toMatrixForm, tsp, calculateTime, calculateDistance } from './calculation';
 
@@ -124,8 +124,9 @@ function displayRoute(inputArr) {
         if (addresses.length > 3) {
           loadingDiv.classList.remove('hidden')
         }
-        addMarkers(addresses, map)
-        return getDistancesAsync(addresses)
+        const markers = addMarkers(addresses, map);
+        addInfoWindow(markers, addresses, map);
+        return getDistancesAsync(addresses);
       }).then(distances => {
         const matrix = toMatrixForm(distances, inputArr.length-1);
         const directionIndex =  tsp(matrix, inputArr.length);
@@ -143,6 +144,7 @@ function displayRoute(inputArr) {
         alert(error)
       });
 }
+
 
 async function getAddressesAsync(inputArr) {
   const addresses = await Promise.all(inputArr.map(input => getGeocode(input)));
