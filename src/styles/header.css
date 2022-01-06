@@ -19,19 +19,16 @@
   right: 10px;
 }
 
+.link-container a,
 .link-container div {
   overflow: hidden;
   padding: 5px 15px;
 }
 
-.link-container div:hover {
+.link-container div:hover,
+.link-container a:hover {
   background-color: #0077B6;
   overflow: hidden;
-}
-
-.link-container a {
-  height: 100%;
-  display: block;
 }
 
 .link-container a,

@@ -27,6 +27,7 @@
 
 .tab button.active {
   background-color: #f1f1f1;
+  cursor: default;
 }
 
 .directions-display-tab ul{
