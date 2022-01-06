@@ -21,11 +21,12 @@
 
 .link-container div {
   overflow: hidden;
-  padding: 10px 15px;
+  padding: 5px 15px;
 }
 
 .link-container div:hover {
   background-color: #0077B6;
+  overflow: hidden;
 }
 
 .link-container a {
