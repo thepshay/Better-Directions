@@ -52,7 +52,7 @@ export function addMarkers(addresses, map) {
     if (index === 0) {
       map.setCenter(addrGeocode);
       map.setZoom(10);
-      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+      marker.setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png');
     }
     return marker;
   });
