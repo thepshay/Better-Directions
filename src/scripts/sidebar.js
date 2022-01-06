@@ -138,6 +138,8 @@ function displayRoute(inputArr) {
         loadingDiv.classList.add('hidden')
       }
       ).catch(error => {
+        
+        calculateBtn.classList.remove('submit-btn-disabled')
         calculateBtn.addEventListener('click',calculateRouteFromInput);
         loadingDiv.classList.add('hidden')
         alert(error)
