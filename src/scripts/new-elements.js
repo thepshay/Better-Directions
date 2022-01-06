@@ -37,8 +37,6 @@ function removeLi(e) {
   currLi.remove();
   if (document.querySelectorAll('.address-list li').length === 10) {
     const hiddenLi = document.querySelector("li.hidden"); 
-    console.log(hiddenLi)
-
     hiddenLi.classList.remove('hidden');
   }
 }

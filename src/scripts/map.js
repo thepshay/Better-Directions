@@ -2,8 +2,6 @@ import Address from "./address";
 import Distance from "./distance";
 
 export function loadMap() {
-  console.log('loadmap')
-
   const mapOptions = {
     center: { lat: 37, lng: -96 },
     zoom: 5,
@@ -13,6 +11,7 @@ export function loadMap() {
   return map;
 }
 
+// inputs address and returns address object with lat, lng, address
 export function getGeocode(address) {
   return new Promise((resolve, reject) => {
     const geocoder = new google.maps.Geocoder();
@@ -29,6 +28,7 @@ export function getGeocode(address) {
   });
 }
 
+// adds autocomplete to inputs
 export function addAutocomplete(input) {
   const autocompleteOptions = {
     types: []
@@ -36,6 +36,7 @@ export function addAutocomplete(input) {
   const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions)
 }
 
+// given array of addresses adds marker for each address
 export function addMarkers(addresses, map) {
   addresses.forEach((address, index) => {
     const addrGeocode = {
@@ -56,6 +57,7 @@ export function addMarkers(addresses, map) {
   })
 }
 
+// displays the route for given direction array
 export function showRoute(direction, map) {
   return new Promise((resolve, reject) => {
     const directionsRenderer = new google.maps.DirectionsRenderer({
@@ -67,6 +69,7 @@ export function showRoute(direction, map) {
   })
 }
 
+// given two addresses returns direction object which holds the response
 export function calculateRoute(startAddr, endAddr) {
   const directionsService = new google.maps.DirectionsService();
   return new Promise((resolve, reject) => {
@@ -83,7 +86,7 @@ export function calculateRoute(startAddr, endAddr) {
         resolve(dist)
       } else if (status === google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
         setTimeout(() => {
-          console.log('OVER QUERY LIMIT, Pause for 1.5 second')
+          console.log('OVER QUERY LIMIT, Request paused for 1.5 second')
           resolve(calculateRoute(startAddr, endAddr));
         }, 1500);
       } else {

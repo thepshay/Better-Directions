@@ -14,7 +14,6 @@ export default class Distance {
   getDurationMin() {
     const duration = this.response.routes[0].legs[0].duration.text;
     const durationArr = duration.split(' ');
-    console.log(duration)
     let time = 0;
     for (let i = 0; i < durationArr.length; i+=2) {
       const currTime = [durationArr[i], durationArr[i+1]];
@@ -28,7 +27,6 @@ export default class Distance {
         time += this.dayToMin(tempTime);
       }
     }
-    console.log(time)
     return time;
   }
 

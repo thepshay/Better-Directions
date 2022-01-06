@@ -88,6 +88,7 @@ export function tsp(matrix, vertices, startingIdx = 0) {
   return minPath; 
 }
 
+// sums all the time ('minutes') and returns integer
 export function calculateTime(directions) {
   let timeMin = 0;
   for (let i = 0; i < directions.length; i++) {
@@ -96,6 +97,7 @@ export function calculateTime(directions) {
   return timeMin;
 }
 
+// converts minutes into a displayable string
 export function timeToStr(time) {
   let day = 0;
   let hour = 0;
@@ -129,6 +131,7 @@ function createStr(day, hr, min) {
   return strTime;
 }
 
+// sums all the distances ('mi') and returns integer
 export function calculateDistance(directions) {
   let dist = 0;
   for (let i = 0; i < directions.length; i++) {

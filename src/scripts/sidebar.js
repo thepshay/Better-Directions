@@ -11,6 +11,7 @@ export function loadSubmitSidebarFunctions() {
   handleCalculateRoute();
 }
 
+// adds functionailty to tabs, switch page when tab is clicked
 function handleTabs() {
   const inputTab = document.querySelector('#input-tab');
   const dirTab = document.querySelector('#direction-tab');
@@ -24,6 +25,7 @@ function handleTabs() {
   })
 }
 
+// hides all tab pages then unhides the desired page
 function openTab(id, e = null) {
   const tabcontent = document.getElementsByClassName('tabcontent');
   for (let i = 0; i < tabcontent.length; i++) {
@@ -91,7 +93,6 @@ function handleCalculateRoute() {
 }
 
 function calculateRouteFromInput(e) {
-  console.log('hi')
   const inputArr = storeInput(e);
   displayRoute(inputArr);
 }
@@ -129,6 +130,7 @@ function displayRoute(inputArr) {
         const matrix = toMatrixForm(distances, inputArr.length-1);
         const directionIndex =  tsp(matrix, inputArr.length);
         const directions = getDirections(matrix, directionIndex);
+
         return Promise.resolve(directions)
       }).then( directions => {
         getRouteAsync(directions, map, calculateBtn);
@@ -170,6 +172,8 @@ function getDirections(matrix, directionIndex) {
   return directions;
 }
 
+// displays the directions on a new tab
+// populates the list with directions and displays time and distance
 function displayDirection(directions) {
   document.querySelector('.start-header').classList.add('hidden');
   document.querySelector('.direction-header').classList.remove('hidden');
