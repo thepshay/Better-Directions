@@ -155,7 +155,7 @@ async function getAddressesAsync(inputArr) {
 async function getDistancesAsync(addresses){
   const pairs = getAllPairs(addresses);
   let count = 0;
-  const distances = await Promise.all(pairs.map(async pair => {
+  const distances = await Promise.all(pairs.map(pair => {
     count++;
     return delayQueryRoute(pair[0], pair[1], count)
   }));
@@ -167,9 +167,14 @@ async function getDistancesAsync(addresses){
 // can be a 20-30 second delay for 7+ entries but with errors
 // might call for dynamic adjustment of delay time based off of input size?
 const delayQueryRoute = (addr1, addr2, count) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout( async () => {
-      resolve(await calculateRoute(addr1, addr2));
+      try {
+        resolve(await calculateRoute(addr1, addr2));
+      } catch (e){
+        reject(e)
+      }
+      
     }, 1000 * count);
   });
 };
