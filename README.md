@@ -1,8 +1,14 @@
 # Better Direction
 
-Are you sick and tired of running errands? Do you not know where to even being? Do you stop by the post office? Or maybe do the shopping first. All you want to do is stay in bed and watch anime...
+**[Live Deployment](https://thepshay.github.io/Better-Directions/)**
 
-Well worry no more! With Better Directions you can input multiple addresses, and it will magically calculate the bestest and fastest route so you won't waste an extra second stuck in traffic. 
+Are you sick and tired of running errands? Do you not know where to even begin? Do you stop by the post office? Or maybe do the shopping first. All you want to do is stay in bed and watch anime...
+
+Well worry no more! With Better Directions you can input multiple addresses, and it will calculate the bestest and fastest route so you won't waste an extra second stuck in traffic. 
+
+![pic2](https://user-images.githubusercontent.com/16026728/148459769-207e9ae3-fe28-490e-b236-cf4dc408cb4a.PNG)
+
+![pic3](https://user-images.githubusercontent.com/16026728/148459772-7913f6f2-d618-48f8-9bbf-f190bb753058.PNG)
 
 ## Functionality & MVPs
 
@@ -20,18 +26,22 @@ Better Directions allows the user to:
 
 ## Technologies, Libraries, APIs
 This project will be implemented with the following technologies:
-- Google Map API
-- Google Direction API
-- Google Geolocation API
+- Google Maps Javascript API
+- Google Places API
+- Google Directions API
+- Google Geocoding API
+- DOM Javascript, HTML, CSS
 
 ## Implementation Timeline
-- Day 1: Set up APIs and get familiar with usage and documentation. Create basic architecture for the app. 
-- Day 2: Write algorithm that will calculate the best routes. Graph traversal with weighted edges.
-- Day 3: Have the map and algorithm working together
-- Day 4: Work on frontend, have all nessary displays
-- Day 5: Polish up front end, make sure all features work as intended
-- Day 6-7: Bug fixes, account for any extra days for unexpected obstacles. 
+- Day 1: Set up APIs and get familiar with usage and documentation. Created sidebar.
+- Day 2: Retrieve addresses from user input.
+- Day 3: Convert addresses into address objects, get familiar with async functions. 
+- Day 4: Handled errors, added extra functionality. Began learning about the best route algorithm. 
+- Day 5: Implement algorithm. Worked on getting routes to display
+- Day 6: Cleaning up css, added tabs to sidebar. First deployment.
+- Day 7: Minor bug fixes, continue polishing up functionalities. 
 
-## Bonus features
-- On startup, display user's current location
-- Retractable address bar 
+## Future Features
+- Add media queries for mobile use.
+- Displays complete route for the user.
+- Make sidebar size adjustable. 
