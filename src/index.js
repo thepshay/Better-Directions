@@ -3,8 +3,6 @@ import {loadMap} from './scripts/map'
 import {loadSubmitSidebarFunctions} from './scripts/sidebar'
 import {handleModal} from './scripts/modal'
 
-// console.log('sanity check, index.js')
-
 // Create the script tag, set the appropriate attributes
 const script = document.createElement('script');
 script.src = `https://maps.googleapis.com/maps/api/js?key=${config.api}&callback=initMap&libraries=places`;

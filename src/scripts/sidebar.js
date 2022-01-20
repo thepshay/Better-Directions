@@ -125,7 +125,6 @@ function displayRoute(inputArr) {
         loadingDiv.classList.remove('hidden')
         const markers = addMarkers(addresses, map);
         addInfoWindow(markers, addresses, map);
-        console.log(addresses)
         return getDistancesAsync(addresses);
       }).then(distances => {
         const matrix = toMatrixForm(distances, inputArr.length-1);
@@ -149,7 +148,7 @@ function displayRoute(inputArr) {
 
 // returns user input as Address objects
 async function getAddressesAsync(inputArr) {
-  if (inputArr.length < 2) throw 'Please enter at least two addresses'
+  if (inputArr.length < 2) return Promise.reject(new Error('Please enter at least two addresses'));
   const addresses = await Promise.all(inputArr.map(input => getGeocode(input)));
   return addresses
 }
@@ -157,7 +156,6 @@ async function getAddressesAsync(inputArr) {
 async function getDistancesAsync(addresses){
   const pairs = getAllPairs(addresses);
   let count = 0;
-  console.log('boo')
   const distances = await Promise.all(pairs.map(pair => {
     count++;
     return delayQueryRoute(pair[0], pair[1], count)
