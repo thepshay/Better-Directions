@@ -14,6 +14,7 @@ export function loadMap() {
 // inputs address and returns address object with lat, lng, address
 export function getGeocode(address) {
   return new Promise((resolve, reject) => {
+    console.log(address)
     const geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address' : address }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {

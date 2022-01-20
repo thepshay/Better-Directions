@@ -77,6 +77,8 @@ export function tsp(matrix, vertices, startingIdx = 0) {
       curr = next;
     });
     // return home distance
+    console.log('hello')
+
     currDist += matrix[curr][startingIdx].getDurationMin();
     currPath.push(startingIdx);
 
