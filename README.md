@@ -6,9 +6,8 @@ Are you sick and tired of running errands? Do you not know where to even begin? 
 
 Well worry no more! With Better Directions you can input multiple addresses, and it will calculate the bestest and fastest route so you won't waste an extra second stuck in traffic. 
 
-![pic2](https://user-images.githubusercontent.com/16026728/148459769-207e9ae3-fe28-490e-b236-cf4dc408cb4a.PNG)
+![directions](https://user-images.githubusercontent.com/16026728/155017988-cf00f4b1-81f3-45d4-9844-d10568e6f46b.gif)
 
-![pic3](https://user-images.githubusercontent.com/16026728/148459772-7913f6f2-d618-48f8-9bbf-f190bb753058.PNG)
 
 ## Functionality & MVPs
 
